@@ -55,3 +55,21 @@ Feature future :
 L'application proposera des anectodes, des petites comptines, des histoires qui font réfléchir/méditer, ou encore des références à des films ou des livres en fonction des recherches effectué. Et aura sur sa page d'acceuil, une phrase du jour composé de bonne parole, de citation ou encore d'expression de film, auteur et acteur.
 
 Et enfin, elle permettra d'autres choses comme un accès à un dictionnaire du langage, pour savoir un peu quoi correspond à quoi, ici je vais pouvoir parler des chakras, des multidimensions, des auras, de l'univers, etc (très très gros sujet).
+
+
+# app
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
