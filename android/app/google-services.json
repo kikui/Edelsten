@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:212756073598:android:e3b57b5bdee66a33d2dc2f",
         "android_client_info": {
-          "package_name": "com.exemple.app"
+          "package_name": "com.ynov.edelsten"
         }
       },
       "oauth_client": [
@@ -35,7 +35,43 @@
               "client_id": "212756073598-28hkr9h21fs69o1a8v8ne6q85is9rf45.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.exemple.app"
+                "bundle_id": "com.ynov.edelsten"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212756073598:android:c61686195f8b3dedd2dc2f",
+        "android_client_info": {
+          "package_name": "com.ynov.edelsten"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212756073598-g6n5tnfi4qiqvmgk3pjo5d4hm5o31tqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH8VmHP124dBfyAKs_aCdyMiqMlvd-1oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212756073598-g6n5tnfi4qiqvmgk3pjo5d4hm5o31tqu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "212756073598-28hkr9h21fs69o1a8v8ne6q85is9rf45.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ynov.edelsten"
               }
             }
           ]
