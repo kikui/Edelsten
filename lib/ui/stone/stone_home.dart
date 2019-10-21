@@ -1,6 +1,6 @@
+import 'package:edelsten/ui/common/common.dart';
+import 'package:edelsten/ui/stone/stone.dart';
 import 'package:flutter/material.dart';
-import 'package:edelsten/common/common.dart';
-import 'package:edelsten/stone/stone.dart';
 
 class StoneHome extends StatelessWidget {
   static const routeName = '/stones';

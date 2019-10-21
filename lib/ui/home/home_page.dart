@@ -1,7 +1,7 @@
+import 'package:edelsten/ui/common/common.dart';
+import 'package:edelsten/ui/login/login.dart';
+import 'package:edelsten/ui/stone/stone.dart';
 import 'package:flutter/material.dart';
-import 'package:edelsten/common/common.dart';
-import 'package:edelsten/login/login.dart';
-import 'package:edelsten/stone/stone.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);

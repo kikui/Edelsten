@@ -1,4 +1,5 @@
-import 'package:edelsten/model/book.dart';
+
+import 'package:edelsten/core/model/book.dart';
 
 class User {
   String pseudo;

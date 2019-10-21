@@ -1,7 +1,7 @@
+import 'package:edelsten/ui/home/home.dart';
+import 'package:edelsten/ui/login/login.dart';
+import 'package:edelsten/ui/stone/stone.dart';
 import 'package:flutter/material.dart';
-import 'package:edelsten/login/login.dart';
-import 'package:edelsten/stone/stone.dart';
-import 'package:edelsten/home/home.dart';
 
 void main() => runApp(MyApp());
 
