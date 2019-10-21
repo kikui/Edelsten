@@ -25,7 +25,9 @@ class Api {
   }
 
   Future<User> getUserProfile(String identifier, String password) async {
-    return User.initial();
+    if (identifier == "test" && password == "123")
+      return User.initial();
+    return null;
   }
 }
 

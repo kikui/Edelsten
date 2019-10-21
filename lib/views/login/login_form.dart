@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
-    _onLoginButtonPressed() {}
 
     return Form(
       child: Column(
@@ -35,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
                   borderRadius: BorderRadius.circular(25.7),
                 ),
               ),
-              controller: _usernameController,
+              //controller: _usernameController,
             ),
           ),
           Container(
@@ -56,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                   borderRadius: BorderRadius.circular(25.7),
                 ),
               ),
-              controller: _passwordController,
+             // controller: _passwordController,
               obscureText: true,
             ),
           ),
