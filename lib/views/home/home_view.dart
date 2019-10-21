@@ -1,12 +1,10 @@
+import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/common/common.dart';
 import 'package:edelsten/views/login/login.dart';
-import 'package:edelsten/views/stone/stone.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
-  HomeView({Key key, this.title}) : super(key: key);
-
-  final String title;
+  HomeView({Key key}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -42,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          LoginView.routeName,
+                          RoutesNames.login,
                         );
                       },
                       color: const Color(0xFF071938),
@@ -79,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          StoneView.routeName,
+                          RoutesNames.stones,
                         );
                       },
                     ),

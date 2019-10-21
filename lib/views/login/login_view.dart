@@ -3,7 +3,6 @@ import 'package:edelsten/views/login/login.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
-  static const routeName = '/login';
 
   @override
   Widget build(BuildContext context) {
