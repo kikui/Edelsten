@@ -1,5 +1,5 @@
+import 'package:edelsten/core/article_repository/article_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:edelsten/article_repository/article_repository.dart';
 
 class StoneArticle extends StatelessWidget {
   // StoneArticle({Key key}) : super(key: key);
@@ -7,7 +7,7 @@ class StoneArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FutureBuilder(
-        future: ArticleApi().getAll(),
+        future: Api().getAllStones(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final articles = snapshot.data;

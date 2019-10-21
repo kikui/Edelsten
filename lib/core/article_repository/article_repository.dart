@@ -1,4 +1,5 @@
-import 'package:meta/meta.dart'; 
+import 'package:edelsten/core/models/model.dart';
+
 class ArticleRepository {
   int id;
   String title;
@@ -9,50 +10,49 @@ class ArticleRepository {
 
   factory ArticleRepository.fromMap(Map<String, dynamic> map) {
     return ArticleRepository(
-      id: map['id'], 
-      title: map['title'], 
+      id: map['id'],
+      title: map['title'],
       overview: map['overview'],
       picture: map['picture'],
     );
-  }  
+  }
 }
 
-class ArticleApi {
-   Future<List> getAll() async {
+class Api {
+  Future<List> getAllStones() async {
     await Future.delayed(Duration(seconds: 1));
     return articles;
+  }
+
+  Future<User> getUserProfile(String identifier, String password) async {
+    return User.initial();
   }
 }
 
 var articles = [
   ArticleRepository(
-    id: 0,
-    title: 'Amethyst',
-    overview: 'Protéger contre l\'ivresse',
-    picture: 'amethyst.jpg'
-  ),    
+      id: 0,
+      title: 'Amethyst',
+      overview: 'Protéger contre l\'ivresse',
+      picture: 'amethyst.jpg'),
   ArticleRepository(
-    id: 1,
-    title: 'Obsidienne',
-    overview: 'Quête de soi et de vérité',
-    picture: 'obsidian.jpg'
-  ),    
+      id: 1,
+      title: 'Obsidienne',
+      overview: 'Quête de soi et de vérité',
+      picture: 'obsidian.jpg'),
   ArticleRepository(
-    id: 2,
-    title: 'Emeraude',
-    overview: 'Favorise l\'amitié',
-    picture: 'emerald.jpg'
-  ),    
+      id: 2,
+      title: 'Emeraude',
+      overview: 'Favorise l\'amitié',
+      picture: 'emerald.jpg'),
   ArticleRepository(
-    id: 3,
-    title: 'Ruby',
-    overview: 'Favorise l\'amitié',
-    picture: 'ruby.jpg'
-  ),    
+      id: 3,
+      title: 'Ruby',
+      overview: 'Favorise l\'amitié',
+      picture: 'ruby.jpg'),
   ArticleRepository(
-    id: 4,
-    title: 'Quartz',
-    overview: 'Favorise l\'amitié',
-    picture: 'quartz.jpg'
-  ),    
+      id: 4,
+      title: 'Quartz',
+      overview: 'Favorise l\'amitié',
+      picture: 'quartz.jpg'),
 ];
