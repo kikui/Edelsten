@@ -1,18 +1,18 @@
-import 'package:edelsten/ui/common/common.dart';
-import 'package:edelsten/ui/login/login.dart';
-import 'package:edelsten/ui/stone/stone.dart';
+import 'package:edelsten/views/common/common.dart';
+import 'package:edelsten/views/login/login.dart';
+import 'package:edelsten/views/stone/stone.dart';
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class HomeView extends StatefulWidget {
+  HomeView({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
-                          LoginPage.routeName,
+                          LoginView.routeName,
                         );
                       },
                       color: const Color(0xFF071938),
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () {
                         Navigator.pushNamed(
                           context,
-                          StoneHome.routeName,
+                          StoneView.routeName,
                         );
                       },
                     ),

@@ -1,8 +1,8 @@
-import 'package:edelsten/ui/common/common.dart';
-import 'package:edelsten/ui/login/login.dart';
+import 'package:edelsten/views/common/common.dart';
+import 'package:edelsten/views/login/login.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginView extends StatelessWidget {
   static const routeName = '/login';
 
   @override
