@@ -1,3 +1,4 @@
+import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/base_view.dart';
@@ -31,7 +32,8 @@ class LoginView extends StatelessWidget {
                             children: [
                               fillableField('Pseudo', model.textController, false),
                               fillableField('Mot de passe', model.passWordController, true),
-                              Container(
+                              model.state == ViewState.Busy ? CircularProgressIndicator()
+                                : Container(
                                 margin: EdgeInsets.only(bottom: 10),
                                 child: FlatButton(
                                   shape: RoundedRectangleBorder(
@@ -67,7 +69,7 @@ class LoginView extends StatelessWidget {
                                   ),
                                   onTap: () {},
                                 ),
-                              ),
+                              ) ,
                             ],
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/base_model.dart';
@@ -11,20 +12,26 @@ class LoginModel extends BaseModel {
   final  TextEditingController passWordController = TextEditingController();
   String errorMessage;
 
+  void resetcontrollers(){
+    textController.clear();
+    passWordController.clear();
+  }
+
   Future<bool> login() async {
     setState(ViewState.Busy);
 
-    var identifier = textController.toString();
-    var password = passWordController.toString();
+    var identifier = textController.text;
+    var password = passWordController.text;
     
     if ( identifier == '' || password == '')
     {
       errorMessage = 'No valid identification!';
       setState(ViewState.Idle);
+      resetcontrollers();
       return false;
     }
     var success = await _authenticationService.login(identifier, password);
-
+    resetcontrollers();
     setState(ViewState.Idle);
     return success;
   }

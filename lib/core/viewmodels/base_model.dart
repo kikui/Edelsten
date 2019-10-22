@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 class BaseModel extends ChangeNotifier {
   
   ViewState _state = ViewState.Idle;
-
   ViewState get state => _state;
 
   void setState(ViewState viewState) {
