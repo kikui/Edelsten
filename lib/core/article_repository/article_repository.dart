@@ -1,4 +1,5 @@
 import 'package:edelsten/core/models/model.dart';
+import 'package:edelsten/core/models/stone.dart';
 
 class ArticleRepository {
   int id;
@@ -21,7 +22,7 @@ class ArticleRepository {
 class Api {
   Future<List> getAllStones() async {
     await Future.delayed(Duration(seconds: 1));
-    return articles;
+    return stones;
   }
 
   Future<User> getUserProfile(String identifier, String password) async {
@@ -32,30 +33,38 @@ class Api {
   }
 }
 
-var articles = [
-  ArticleRepository(
+var stones = [
+  Stone(
       id: 0,
       title: 'Amethyst',
       overview: 'Protéger contre l\'ivresse',
       picture: 'amethyst.jpg'),
-  ArticleRepository(
+  Stone(
       id: 1,
       title: 'Obsidienne',
       overview: 'Quête de soi et de vérité',
       picture: 'obsidian.jpg'),
-  ArticleRepository(
+  Stone(
       id: 2,
       title: 'Emeraude',
       overview: 'Favorise l\'amitié',
       picture: 'emerald.jpg'),
-  ArticleRepository(
+  Stone(
       id: 3,
       title: 'Ruby',
       overview: 'Favorise l\'amitié',
       picture: 'ruby.jpg'),
-  ArticleRepository(
+  Stone(
       id: 4,
       title: 'Quartz',
       overview: 'Favorise l\'amitié',
       picture: 'quartz.jpg'),
 ];
+
+// Widget build(BuildContext context) {
+//     return BaseView<StonesModel>(
+//       onModelReady:  (model){
+//         model.getstones();
+//       },
+//     );
+//   }
