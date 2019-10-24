@@ -1,3 +1,4 @@
+import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/login/login.dart';
@@ -13,7 +14,10 @@ class Router {
       case RoutesNames.login:
         return MaterialPageRoute(builder: (_) => LoginView());
       case RoutesNames.stones:
-        return MaterialPageRoute(builder: (_) => StoneView());
+        return MaterialPageRoute(builder: (_) => StonesView());
+      case RoutesNames.stone:
+        var stone = settings.arguments as Stone;
+        return MaterialPageRoute(builder: (_) => StoneView(stone));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
