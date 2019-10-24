@@ -1,5 +1,4 @@
-import 'package:edelsten/model/picture.dart';
-import 'package:edelsten/model/history.dart';
+import 'package:edelsten/core/models/model.dart';
 
 class Article{
   String title;
