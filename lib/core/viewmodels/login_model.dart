@@ -30,12 +30,21 @@ class LoginModel extends BaseModel {
     
     try {
       success = await _authenticationService.login(identifier, password);
-    } catch (error) {
-        errorMessage = error.toString();
+    } 
+    catch (error) {
+      errorMessage = convertErrorMessage(error.code);
     }
     resetcontrollers();
     setState(ViewState.Idle);
     return success;
+  }
+
+  String convertErrorMessage(String code){
+    var dict = {
+      "ERROR_INVALID_EMAIL" : "L'adresse mail n'est pas valide!",
+      "ERROR_WRONG_PASSWORD" : "Le mot de passe n'est pas valide!"
+      };
+    return dict[code];
   }
 
   void resetcontrollers(){
