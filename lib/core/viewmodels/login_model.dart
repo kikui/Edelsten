@@ -12,10 +12,6 @@ class LoginModel extends BaseModel {
   final  TextEditingController passWordController = TextEditingController();
   String errorMessage;
 
-  void resetcontrollers(){
-    textController.clear();
-    passWordController.clear();
-  }
 
   Future<bool> login() async {
     setState(ViewState.Busy);
@@ -30,9 +26,20 @@ class LoginModel extends BaseModel {
       resetcontrollers();
       return false;
     }
-    var success = await _authenticationService.login(identifier, password);
+    var success = false;
+    
+    try {
+      success = await _authenticationService.login(identifier, password);
+    } catch (error) {
+        errorMessage = error.toString();
+    }
     resetcontrollers();
     setState(ViewState.Idle);
     return success;
+  }
+
+  void resetcontrollers(){
+    textController.clear();
+    passWordController.clear();
   }
 }

@@ -60,7 +60,7 @@ class LoginView extends StatelessWidget {
                                               }
                                               else {
                                                 loginNotification(
-                                                  message: "Failling to login with this id and password",
+                                                  message: model.errorMessage,
                                                   isSuccedLogin: false,
                                                   context: context);
                                               }

@@ -12,11 +12,7 @@ class AuthenticationService  {
   Future<bool> login (String identifier, String password) async {
     
     var firebaseUser;
-    try {
-      firebaseUser = await _api.loginUser(email: identifier, password: password);
-    } catch (e) {
-      //print("erreur log 12234" + e.toString());
-    }
+    firebaseUser = await _api.loginUser(email: identifier, password: password);
 
     User fetcheduser;
     if (firebaseUser != null){

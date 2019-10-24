@@ -22,14 +22,6 @@ class Api {
 
   Future<User> getUserData(String uuid) async {
   }
-
-
-  Future<User> getUserProfile(String identifier, String password) async {
-    await Future.delayed(Duration(seconds: 1));
-    if (identifier == "test" && password == "123")
-      return User.initial();
-    return null;
-  }
 }
 
 var stones = [
