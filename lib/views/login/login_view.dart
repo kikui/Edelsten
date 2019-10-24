@@ -3,6 +3,7 @@ import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/base_view.dart';
 import 'package:edelsten/views/common/common.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -35,10 +36,8 @@ class LoginView extends StatelessWidget {
                             child: IntrinsicWidth(
                               child: Column(
                                 children: [
-                                  fillableField(
-                                      'Pseudo', model.textController, false),
-                                  fillableField('Mot de passe',
-                                      model.passWordController, true),
+                                  fillableField('Pseudo', model.textController, false),
+                                  fillableField('Mot de passe', model.passWordController, true),
                                   model.state == ViewState.Busy
                                       ? CircularProgressIndicator()
                                       : Container(
@@ -51,12 +50,19 @@ class LoginView extends StatelessWidget {
                                                     color: const Color(
                                                         0xFF071938))),
                                             onPressed: () async {
-                                              var loginSuccess =
-                                                  await model.login();
+                                              var loginSuccess = await model.login();
                                               if (loginSuccess) {
-                                                // Navigate to the home view
-                                                Navigator.pushNamed(context,
-                                                    RoutesNames.stones);
+                                                Navigator.pushNamed(context, RoutesNames.stones);
+                                                loginNotification(
+                                                  message: "Welcome back amigo!",
+                                                  isSuccedLogin: true,
+                                                  context: context);
+                                              }
+                                              else {
+                                                loginNotification(
+                                                  message: "Failling to login with this id and password",
+                                                  isSuccedLogin: false,
+                                                  context: context);
                                               }
                                             },
                                             color: const Color(0xFF071938),
@@ -66,8 +72,7 @@ class LoginView extends StatelessWidget {
                                                 right: 100,
                                                 bottom: 20,
                                                 left: 100),
-                                            child: Text("Se connecter",
-                                                style: TextStyle(fontSize: 20)),
+                                            child: Text("Se connecter", style: TextStyle(fontSize: 20)),
                                           ),
                                         ),
                                   Container(
@@ -94,9 +99,21 @@ class LoginView extends StatelessWidget {
               ),
             ));
   }
+  Widget loginNotification({ String message, bool isSuccedLogin, BuildContext context}){
+    Color color = Colors.red[200]; 
+    if (isSuccedLogin)
+      color = Colors.green[300];
+    
+    return Flushbar(
+      title: isSuccedLogin ? 'Login succed' : 'Login failed',
+      message: message ,
+      flushbarPosition: FlushbarPosition.TOP,
+      backgroundColor: color,
+      duration: Duration(seconds: 4),
+    )..show(context);
+  }
 
-  Widget fillableField(String fieldText, TextEditingController fieldController,
-      bool obscureText) {
+  Widget fillableField(String fieldText, TextEditingController fieldController, bool obscureText) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: TextFormField(
