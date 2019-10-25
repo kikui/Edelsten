@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../base_view.dart';
 
 class StonesView extends StatelessWidget {
-  static const routeName = RoutesNames.stones;
   @override
   Widget build(BuildContext context) {
     return BaseView<StonesModel>(

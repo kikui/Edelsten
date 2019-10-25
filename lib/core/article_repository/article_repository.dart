@@ -1,35 +1,26 @@
+import 'dart:async';
+import 'dart:async' as prefix0;
+import 'dart:core' ;
+
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
-
-class ArticleRepository {
-  int id;
-  String title;
-  String overview;
-  String picture;
-
-  ArticleRepository({this.id, this.title, this.overview, this.picture});
-
-  factory ArticleRepository.fromMap(Map<String, dynamic> map) {
-    return ArticleRepository(
-      id: map['id'],
-      title: map['title'],
-      overview: map['overview'],
-      picture: map['picture'],
-    );
-  }
-}
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Api {
-  Future<List> getAllStones() async {
+  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  Future<FirebaseUser> loginUser({String email, String password}) async {
+    var result  = (await _auth.signInWithEmailAndPassword(email: email, password: password)).user;
+    return result;
+  }
+  
+  Future<List<Stone>> getAllStones() async {
     await Future.delayed(Duration(seconds: 1));
     return stones;
   }
 
-  Future<User> getUserProfile(String identifier, String password) async {
-    await Future.delayed(Duration(seconds: 1));
-    if (identifier == "test" && password == "123")
-      return User.initial();
-    return null;
+  Future<User> getUserData(String uuid) async {
   }
 }
 
@@ -60,11 +51,3 @@ var stones = [
       overview: 'Favorise l\'amitié',
       picture: 'quartz.jpg'),
 ];
-
-// Widget build(BuildContext context) {
-//     return BaseView<StonesModel>(
-//       onModelReady:  (model){
-//         model.getstones();
-//       },
-//     );
-//   }

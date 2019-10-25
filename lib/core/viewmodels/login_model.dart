@@ -8,31 +8,46 @@ import 'package:flutter/widgets.dart';
 class LoginModel extends BaseModel {
 
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
-  final TextEditingController textController = TextEditingController();
-  final  TextEditingController passWordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final  TextEditingController passwordController = TextEditingController();
   String errorMessage;
-
-  void resetcontrollers(){
-    textController.clear();
-    passWordController.clear();
-  }
 
   Future<bool> login() async {
     setState(ViewState.Busy);
 
-    var identifier = textController.text;
-    var password = passWordController.text;
+    var email = emailController.text;
+    var password = passwordController.text;
     
-    if ( identifier == '' || password == '')
+    if ( email == '' || password == '')
     {
-      errorMessage = 'No valid identification!';
+      errorMessage = 'Identification invalide!';
       setState(ViewState.Idle);
       resetcontrollers();
       return false;
     }
-    var success = await _authenticationService.login(identifier, password);
+    var success = false;
+    
+    try {
+      success = await _authenticationService.login(email, password);
+    } 
+    catch (error) {
+      errorMessage = convertErrorMessage(error.code);
+    }
     resetcontrollers();
     setState(ViewState.Idle);
     return success;
+  }
+
+  String convertErrorMessage(String code){
+    var dict = {
+      "ERROR_INVALID_EMAIL" : "L'adresse mail n'est pas valide!",
+      "ERROR_WRONG_PASSWORD" : "Le mot de passe n'est pas valide!"
+      };
+    return dict[code];
+  }
+
+  void resetcontrollers(){
+    emailController.clear();
+    passwordController.clear();
   }
 }
