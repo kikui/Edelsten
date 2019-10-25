@@ -1,4 +1,5 @@
 import 'package:edelsten/core/models/stone.dart';
+import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/common/common.dart';
@@ -29,6 +30,14 @@ class StonesView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SearchWidget(),
+                model.state == ViewState.Busy ? 
+                Expanded(
+                  child: Center(child: CircularProgressIndicator(
+                      
+                  ),)
+                   ,
+                )
+                :
                 Expanded(
                   child: stonesListView(model.stones),
                 )
