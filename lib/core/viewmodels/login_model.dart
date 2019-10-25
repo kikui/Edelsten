@@ -12,7 +12,6 @@ class LoginModel extends BaseModel {
   final  TextEditingController passwordController = TextEditingController();
   String errorMessage;
 
-
   Future<bool> login() async {
     setState(ViewState.Busy);
 

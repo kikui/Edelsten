@@ -18,6 +18,7 @@ dependencies:
   get_it:
   flushbar: ^1.9.1
 
+
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
