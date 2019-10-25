@@ -32,10 +32,8 @@ class StonesView extends StatelessWidget {
                 SearchWidget(),
                 model.state == ViewState.Busy ? 
                 Expanded(
-                  child: Center(child: CircularProgressIndicator(
-                      
-                  ),)
-                   ,
+                  child: Center(child: CircularProgressIndicator(),
+                  ) ,
                 )
                 :
                 Expanded(
