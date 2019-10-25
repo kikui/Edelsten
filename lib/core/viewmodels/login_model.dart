@@ -21,7 +21,7 @@ class LoginModel extends BaseModel {
     
     if ( identifier == '' || password == '')
     {
-      errorMessage = 'No valid identification!';
+      errorMessage = 'Identification invalide!';
       setState(ViewState.Idle);
       resetcontrollers();
       return false;

@@ -54,7 +54,7 @@ class LoginView extends StatelessWidget {
                                               if (loginSuccess) {
                                                 Navigator.pushNamed(context, RoutesNames.stones);
                                                 loginNotification(
-                                                  message: "Welcome back amigo!",
+                                                  message: "Wesh poto, bien ou bien?",
                                                   isSuccedLogin: true,
                                                   context: context);
                                               }
@@ -105,7 +105,7 @@ class LoginView extends StatelessWidget {
       color = Colors.green[300];
     
     return Flushbar(
-      title: isSuccedLogin ? 'Login succed' : 'Login failed',
+      title: isSuccedLogin ? 'Connexion réussie' : 'Connexion échouée',
       message: message ,
       flushbarPosition: FlushbarPosition.TOP,
       backgroundColor: color,
