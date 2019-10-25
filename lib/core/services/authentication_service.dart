@@ -10,8 +10,15 @@ class AuthenticationService  {
   Api _api = locator<Api>();
 
   Future<bool> login (String identifier, String password) async {
-    var fetcheduser = await _api.getUserProfile(identifier, password);
-    // Check if success
+    
+    var firebaseUser;
+    firebaseUser = await _api.loginUser(email: identifier, password: password);
+
+    User fetcheduser;
+    if (firebaseUser != null){
+       //fetcheduser = await _api.getUserData(firebaseUser.uid);
+       fetcheduser = User.initial();
+    }
     var hasUser = fetcheduser != null;
     if (hasUser) {
       userController.add(fetcheduser);
