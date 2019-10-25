@@ -1,5 +1,5 @@
 import 'package:edelsten/core/services/authentication_service.dart';
-import 'package:edelsten/core/services/repository_user.dart';
+import 'package:edelsten/core/services/user_repository.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:get_it/get_it.dart';
 import 'core/article_repository/article_repository.dart';
@@ -10,6 +10,6 @@ void setupLocator() {
   locator.registerFactory(() => LoginModel());
   locator.registerLazySingleton(() => Api());
   locator.registerLazySingleton(() => AuthenticationService());
-  locator.registerLazySingleton(() => RepositoryUser());
+  locator.registerLazySingleton(() => UserRepository());
   locator.registerFactory(() => StonesModel());
 }

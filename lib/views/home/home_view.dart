@@ -1,3 +1,6 @@
+import 'package:edelsten/core/models/user.dart';
+import 'package:edelsten/core/services/user_repository.dart';
+import 'package:edelsten/locator.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/common/common.dart';
 import 'package:edelsten/views/login/login.dart';
@@ -74,11 +77,14 @@ class _HomeViewState extends State<HomeView> {
                           color: const Color(0xFFABAFB2),
                         ),
                       ),
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesNames.stones,
-                        );
+                      onTap: () async {
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   RoutesNames.stones,
+                        // );
+                        UserRepository _userRepository = locator<UserRepository>();
+                        User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
+                        print(userData);
                       },
                     ),
                   ),

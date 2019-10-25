@@ -5,7 +5,7 @@ class User {
   String id;
   String pseudo;
   bool administrator;
-  List<String> favorites = List();
+  List<dynamic> favorites = List();
   List<Book> books = List();
   
   User.fromSnapshot(DocumentSnapshot snapshot) {
@@ -13,9 +13,15 @@ class User {
     pseudo = snapshot['pseudo'];
     administrator = snapshot['administrator'];
     favorites = snapshot['favorites'];
-    snapshot['books'].foreach((e) => {
-      books.add(Book.fromSnapshot(e))
+  }
+
+  String toString(){
+    var result = 'id: ' + id + ' | pseudo: ' + pseudo + ' | admin: ' + administrator.toString() + ' | favorites : [';
+    favorites.forEach((e) => {
+      result += e.toString() + ', '
     });
+    result += ']';
+    return result;
   }
 
   User.initial(){
