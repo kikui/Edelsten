@@ -36,8 +36,8 @@ class LoginView extends StatelessWidget {
                             child: IntrinsicWidth(
                               child: Column(
                                 children: [
-                                  fillableField('Pseudo', model.textController, false),
-                                  fillableField('Mot de passe', model.passWordController, true),
+                                  fillableField('Email', model.emailController, false),
+                                  fillableField('Mot de passe', model.passwordController, true),
                                   model.state == ViewState.Busy
                                       ? CircularProgressIndicator()
                                       : Container(
