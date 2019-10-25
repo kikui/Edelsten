@@ -6,6 +6,7 @@ import 'package:edelsten/views/common/common.dart';
 import 'package:edelsten/views/stone/stone.dart';
 import 'package:flutter/material.dart';
 import '../base_view.dart';
+import 'custom_search_delegate.dart';
 
 class StonesView extends StatelessWidget {
   @override
@@ -134,7 +135,15 @@ class SearchWidget extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search),
+                    IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: (){
+                          showSearch(
+                            context: context,
+                            delegate: CustomSearchDelegate()
+                          );
+                        },
+                      ),
                     Flexible(
                       child: TextField(
                         decoration: InputDecoration(hintText: "Rechercher"),
