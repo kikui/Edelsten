@@ -30,7 +30,7 @@ class StonesView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SearchWidget(),
+                SearchWidget(model: model,),
                 model.state == ViewState.Busy ? 
                 Expanded(
                   child: Center(child: CircularProgressIndicator(),
@@ -38,7 +38,7 @@ class StonesView extends StatelessWidget {
                 )
                 :
                 Expanded(
-                  child: stonesListView(model.stones),
+                  child: stonesListView(model.stoneToShow()),
                 )
               ],
             ),
@@ -120,6 +120,10 @@ class StoneListItem extends StatelessWidget {
 }
 
 class SearchWidget extends StatelessWidget {
+  final StonesModel model;
+
+  SearchWidget({@required this.model});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -136,18 +140,13 @@ class SearchWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: (){
-                          showSearch(
-                            context: context,
-                            delegate: CustomSearchDelegate()
-                          );
-                        },
+                        icon: model.searchIcon,
+                        onPressed: () {
+                          model.searchIconPressed();
+                        } 
                       ),
                     Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(hintText: "Rechercher"),
-                      ),
+                      child: model.searchBar,
                     ),
                   ],
                 )),
