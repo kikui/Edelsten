@@ -18,7 +18,7 @@ class LoginModel extends BaseModel {
     var email = emailController.text;
     var password = passwordController.text;
     
-    if ( email == '' || password == '')
+    if ( emailController.text.isEmpty || passwordController.text.isEmpty)
     {
       errorMessage = 'Identification invalide!';
       setState(ViewState.Idle);
@@ -41,7 +41,8 @@ class LoginModel extends BaseModel {
   String convertErrorMessage(String code){
     var dict = {
       "ERROR_INVALID_EMAIL" : "L'adresse mail n'est pas valide!",
-      "ERROR_WRONG_PASSWORD" : "Le mot de passe n'est pas valide!"
+      "ERROR_WRONG_PASSWORD" : "Le mot de passe n'est pas valide!",
+      "FirebaseException" : "Erreur de connexion avec la base de données!"
       };
     return dict[code];
   }

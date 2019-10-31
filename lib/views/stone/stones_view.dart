@@ -3,7 +3,6 @@ import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/common/common.dart';
-import 'package:edelsten/views/stone/stone.dart';
 import 'package:flutter/material.dart';
 import '../base_view.dart';
 
@@ -29,16 +28,18 @@ class StonesView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SearchWidget(),
-                model.state == ViewState.Busy ? 
-                Expanded(
-                  child: Center(child: CircularProgressIndicator(),
-                  ) ,
-                )
-                :
-                Expanded(
-                  child: stonesListView(model.stones),
-                )
+                SearchWidget(
+                  model: model,
+                ),
+                model.state == ViewState.Busy
+                    ? Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : Expanded(
+                        child: stonesListView(model.stoneToShow()),
+                      )
               ],
             ),
           ),
@@ -119,32 +120,39 @@ class StoneListItem extends StatelessWidget {
 }
 
 class SearchWidget extends StatelessWidget {
+  final StonesModel model;
+
+  SearchWidget({@required this.model});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      transform: Matrix4.translationValues(0, 10, 0),
-      margin: EdgeInsets.only(left: 45, right: 45, top: 50),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.search),
-                    Flexible(
-                      child: TextField(
-                        decoration: InputDecoration(hintText: "Rechercher"),
-                      ),
+    return GestureDetector(
+        onTap: model.searchIconPressed,
+        child: Container(
+          margin: EdgeInsets.only(left: 45, right: 45, top: 50),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(18)),
                     ),
-                  ],
-                )),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: model.searchIcon,
+                            onPressed: () {
+                              model.searchIconPressed();
+                            }),
+                        Flexible(
+                          child: model.searchBar,
+                        ),
+                      ],
+                    )),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
