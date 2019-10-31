@@ -25,5 +25,29 @@ class UserRepository {
     return userData;
   }
 
-  // method get books user(uuid)
+  // method get user favorites(user uuid)
+  Future<List<Article>> getUserFavorites(String uuid) async {
+
+    return null;
+  }
+
+  // method add favorite(article uuid)
+  void addFavory(String uuid) async {
+
+  }
+
+  //method delete favorite(article uuid)
+  void deleteFavory(String uuid) async {
+    
+  }
+
+  // method get books user(user uuid)
+  Future<List<Book>> getUserBooks(String uuid) async {
+    
+    return null;
+  }
+
+  // method add book
+  // method delete book(book uuid)
+  // method update book(book uuid)
 }
