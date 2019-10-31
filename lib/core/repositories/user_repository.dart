@@ -22,6 +22,12 @@ class UserRepository {
     DocumentReference userDocumentReference = userCollectionReference.document(uuid);
     DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
     User userData = User.fromSnapshot(userDocumentSnapshot);
+
+    List<DocumentSnapshot> booksSnapshot = (await userDocumentReference.collection('books').getDocuments()).documents;
+    booksSnapshot.forEach((e) => {
+      userData.books.add(Book.fromSnapshot(e))
+    });
+    print('test');
     return userData;
   }
 
