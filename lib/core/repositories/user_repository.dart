@@ -16,7 +16,7 @@ class UserRepository {
 
   // method create userData(uuid)
   
-  // method get userData(uuid)
+  // method get userData(user uuid)
   Future<User> getUserData(String uuid) async {  
     CollectionReference userCollectionReference = dataBase.collection('users');
     DocumentReference userDocumentReference = userCollectionReference.document(uuid);
@@ -26,14 +26,27 @@ class UserRepository {
   }
 
   // method get user favorites(user uuid)
-  Future<List<Article>> getUserFavorites(String uuid) async {
+  Future<List<Article>> getUserFavorites(List<dynamic> listReference) async {
+    List<Article> listFavorites = List();
+    DocumentReference articleReference;
+    DocumentSnapshot articleSnapshot;
+    Article article;
 
-    return null;
+    listReference.forEach((e) async => {
+      articleReference = e,
+      articleSnapshot = await articleReference.get(),
+      article = Article.fromSnapshot(articleSnapshot),
+      listFavorites.add(article)
+    });
+
+    return listFavorites;
   }
 
-  // method add favorite(article uuid)
+  // method add favorite(article documentReference)
   void addFavory(String uuid) async {
-
+    // get document ref
+    // add to user 
+    // refresh user
   }
 
   //method delete favorite(article uuid)
@@ -42,11 +55,6 @@ class UserRepository {
   }
 
   // method get books user(user uuid)
-  Future<List<Book>> getUserBooks(String uuid) async {
-    
-    return null;
-  }
-
   // method add book
   // method delete book(book uuid)
   // method update book(book uuid)

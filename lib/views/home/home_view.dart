@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:edelsten/core/models/article.dart';
 import 'package:edelsten/core/models/user.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
@@ -85,6 +88,9 @@ class _HomeViewState extends State<HomeView> {
                         UserRepository _userRepository = locator<UserRepository>();
                         User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
                         print(userData);
+                        List<Article> listFavory = List();
+                        listFavory = await _userRepository.getUserFavorites(userData.favorites);
+                        print(listFavory.length);
                       },
                     ),
                   ),
