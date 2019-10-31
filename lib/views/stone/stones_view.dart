@@ -3,10 +3,8 @@ import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/common/common.dart';
-import 'package:edelsten/views/stone/stone.dart';
 import 'package:flutter/material.dart';
 import '../base_view.dart';
-import 'custom_search_delegate.dart';
 
 class StonesView extends StatelessWidget {
   @override
