@@ -1,11 +1,9 @@
 import 'package:edelsten/core/models/stone.dart';
-import 'package:edelsten/core/viewmodels/stone_model.dart';
 import 'package:edelsten/views/stone/stone.dart';
 import 'package:edelsten/views/stone/stone_histories.dart';
 import 'package:edelsten/views/stone/stone_pictures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:edelsten/views/common/common.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class StoneView extends StatefulWidget {
