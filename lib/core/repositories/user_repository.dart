@@ -16,18 +16,25 @@ class UserRepository {
 
   // method create userData(uuid)
   
-  // method get userData(user uuid)
-  Future<User> getUserData(String uuid) async {  
+  // method get userDocument(user uuid)
+  DocumentReference getUserDocument(String uuidUser) {
     CollectionReference userCollectionReference = dataBase.collection('users');
-    DocumentReference userDocumentReference = userCollectionReference.document(uuid);
+    DocumentReference userDocumentReference = userCollectionReference.document(uuidUser);
+    return userDocumentReference;
+  }
+
+  // method get userData(user uuid)
+  Future<User> getUserData(String uuidUser) async {  
+    DocumentReference userDocumentReference = getUserDocument(uuidUser);
     DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
     User userData = User.fromSnapshot(userDocumentSnapshot);
 
+    // get userBooks
     List<DocumentSnapshot> booksSnapshot = (await userDocumentReference.collection('books').getDocuments()).documents;
     booksSnapshot.forEach((e) => {
       userData.books.add(Book.fromSnapshot(e))
     });
-    print('test');
+
     return userData;
   }
 
@@ -48,19 +55,32 @@ class UserRepository {
     return listFavorites;
   }
 
-  // method add favorite(article documentReference)
-  void addFavory(String uuid) async {
+  // method add favorite(article uuid)
+  void addFavory(User user, String uuidStone) {
     // get document ref
+    CollectionReference stoneCollectionReference = dataBase.collection('stones');
+    DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
     // add to user 
-    // refresh user
+    DocumentReference userDocumentReference = getUserDocument(user.id);
+
+    user.favorites.add(stoneDocumentReference);
+    Map data = Map<String, List<dynamic>>();
+    data['favorites'] = user.favorites;
+    userDocumentReference.updateData(data);
   }
 
   //method delete favorite(article uuid)
-  void deleteFavory(String uuid) async {
-    
+  void deleteFavory(User user, String uuidStone) async {
+    CollectionReference stoneCollectionReference = dataBase.collection('stones');
+    DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
+    DocumentReference userDocumentReference = getUserDocument(user.id);
+
+    user.favorites.remove(stoneDocumentReference);
+    Map data = Map<String, List<dynamic>>();
+    data['favorites'] = user.favorites;
+    userDocumentReference.updateData(data);
   }
 
-  // method get books user(user uuid)
   // method add book
   // method delete book(book uuid)
   // method update book(book uuid)
