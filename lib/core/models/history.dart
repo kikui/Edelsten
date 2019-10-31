@@ -1,5 +1,7 @@
 class History{
  String description;
- String periode;
+ String period;
  String title;
+
+ History({this.description, this.period, this.title});
 }

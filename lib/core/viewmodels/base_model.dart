@@ -10,4 +10,11 @@ class BaseModel extends ChangeNotifier {
     _state = viewState;
     notifyListeners();
   }
+
+  void setStateWithFunction(Function function){
+    setState(ViewState.Busy);
+    function();
+    setState(ViewState.Idle);
+
+  }
 }

@@ -18,7 +18,7 @@ class LoginModel extends BaseModel {
     var email = emailController.text;
     var password = passwordController.text;
     
-    if ( email == '' || password == '')
+    if ( emailController.text.isEmpty || passwordController.text.isEmpty)
     {
       errorMessage = 'Identification invalide!';
       setState(ViewState.Idle);
