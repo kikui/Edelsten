@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:edelsten/core/models/model.dart';
-import 'package:edelsten/core/services/user_repository.dart';
+import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
 
 class AuthenticationService  {

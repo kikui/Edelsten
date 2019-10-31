@@ -1,5 +1,5 @@
 import 'package:edelsten/core/models/model.dart';
-import 'package:edelsten/core/services/user_repository.dart';
+import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){

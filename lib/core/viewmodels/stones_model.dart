@@ -1,5 +1,5 @@
-import 'package:edelsten/core/article_repository/article_repository.dart';
 import 'package:edelsten/core/models/stone.dart';
+import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/locator.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import '../view_state.dart';
 
 class StonesModel extends BaseModel {
-  Api _api = locator<Api>();
+  StoneRepository _stoneRepo = locator<StoneRepository>();
   List<Stone> stones;
   TextEditingController filter = TextEditingController(); 
   Icon searchIcon = Icon(Icons.search);
@@ -35,7 +35,7 @@ class StonesModel extends BaseModel {
 
   Future getstones() async {
     setState(ViewState.Busy);
-    stones = await _api.getAllStones();
+    stones = await _stoneRepo.getAllStones();
     filteredStones = stones;
     setState(ViewState.Idle);
   }

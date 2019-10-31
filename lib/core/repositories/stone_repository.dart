@@ -2,13 +2,15 @@ import 'dart:async';
 import 'dart:async' as prefix0;
 import 'dart:core' ;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Api {
+class StoneRepository {
   
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final String stonesString = "stones";  
   
   Future<FirebaseUser> loginUser({String email, String password}) async {
     var result  = (await _auth.signInWithEmailAndPassword(email: email, password: password)).user;
@@ -16,9 +18,16 @@ class Api {
   }
   
   Future<List<Stone>> getAllStones() async {
-    await Future.delayed(Duration(seconds: 1));
-    return stones;
+    var stoneList = new List<Stone>();  
+    var collectionData = Firestore.instance.collection(stonesString);
+
+    
   }
+  
+  // Future<List<Stone>> getAllStones2() async {
+  //   await Future.delayed(Duration(seconds: 1));
+  //   return stones;
+  // }
 
   Future<User> getUserData(String uuid) async {
   }
