@@ -59,8 +59,8 @@ Widget stonesListView(List<Stone> stones) => ListView.builder(
     itemCount: stones?.length,
     itemBuilder: (context, index) => StoneListItem(
           stone: stones[index],
-          onTap: () {
-            Navigator.pushNamed(context, RoutesNames.stone);
+          onTap: ()  {
+            Navigator.pushNamed(context, RoutesNames.stone, arguments: stones[index]);
           },
         ));
 
