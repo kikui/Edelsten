@@ -8,23 +8,26 @@ class TitleAndDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(title,
-              style: TextStyle(
-                  color: Theme.of(context).accentColor, fontSize: 15)),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            content,
-            style: TextStyle(color: Colors.white),
-            textAlign: TextAlign.justify,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(title,
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 15)),
           ),
-        ),
-      ],
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              content,
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.justify,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
