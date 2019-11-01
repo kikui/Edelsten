@@ -89,6 +89,8 @@ class _HomeViewState extends State<HomeView> {
                         User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
                         List<Article> listFavory = List();
                         listFavory = await _userRepository.getUserFavorites(userData.favorites);
+                        //_userRepository.addFavory(userData, 'kRBsrPnt3trRl9DATQz2');
+                        _userRepository.deleteFavory(userData, 'kRBsrPnt3trRl9DATQz2');
                         // User userCreate = User('id', 'pseudoTest', false);
                         // await _userRepository.createUser(userCreate);
                         print('END TEST');

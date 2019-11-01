@@ -35,7 +35,6 @@ class UserRepository {
     dataBook['title'] = 'Première page du grimoire';
     dataBook['body'] = '';
     await documentUser.collection('books').add(dataBook);
-    print('done');
   }
 
   // method get userData(user uuid)
