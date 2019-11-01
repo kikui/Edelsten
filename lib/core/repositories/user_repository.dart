@@ -14,13 +14,28 @@ class UserRepository {
     return result;
   }
 
-  // method create userData(uuid)
-  
   // method get userDocument(user uuid)
   DocumentReference getUserDocument(String uuidUser) {
     CollectionReference userCollectionReference = dataBase.collection('users');
     DocumentReference userDocumentReference = userCollectionReference.document(uuidUser);
     return userDocumentReference;
+  }
+
+  // method create userData(uuid)
+  void createUser(User user) async {
+    CollectionReference userCollectionReference = dataBase.collection('users');
+    Map dataUser = Map<String, dynamic>();
+    dataUser['pseudo'] = user.pseudo;
+    dataUser['administrator'] = false;
+    dataUser['favorites'] = List();
+    await userCollectionReference.document(user.id).setData(dataUser);
+
+    DocumentReference documentUser = getUserDocument(user.id);
+    Map dataBook = Map<String, dynamic>();
+    dataBook['title'] = 'Première page du grimoire';
+    dataBook['body'] = '';
+    await documentUser.collection('books').add(dataBook);
+    print('done');
   }
 
   // method get userData(user uuid)

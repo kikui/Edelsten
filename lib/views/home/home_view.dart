@@ -87,10 +87,11 @@ class _HomeViewState extends State<HomeView> {
                         // );
                         UserRepository _userRepository = locator<UserRepository>();
                         User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
-                        print(userData);
                         List<Article> listFavory = List();
                         listFavory = await _userRepository.getUserFavorites(userData.favorites);
-                        print(listFavory.length);
+                        // User userCreate = User('id', 'pseudoTest', false);
+                        // await _userRepository.createUser(userCreate);
+                        print('END TEST');
                       },
                     ),
                   ),

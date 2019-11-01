@@ -24,6 +24,12 @@ class User {
     return result;
   }
 
+  User(String id, String pseudo, bool admin){
+    this.id = id;
+    this.pseudo = pseudo;
+    this.administrator = admin;
+  }
+
   User.initial(){
     id = '0';
     pseudo = '';
