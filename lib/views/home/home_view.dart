@@ -1,7 +1,7 @@
 import 'dart:io';
-
-import 'package:edelsten/core/models/article.dart';
+import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/models/user.dart';
+import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
 import 'package:edelsten/routes/routes_names.dart';
@@ -85,14 +85,9 @@ class _HomeViewState extends State<HomeView> {
                         //   context,
                         //   RoutesNames.stones,
                         // );
-                        UserRepository _userRepository = locator<UserRepository>();
-                        User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
-                        List<Article> listFavory = List();
-                        listFavory = await _userRepository.getUserFavorites(userData.favorites);
-                        //_userRepository.addFavory(userData, 'kRBsrPnt3trRl9DATQz2');
-                        _userRepository.deleteFavory(userData, 'kRBsrPnt3trRl9DATQz2');
-                        // User userCreate = User('id', 'pseudoTest', false);
-                        // await _userRepository.createUser(userCreate);
+                        StoneRepository _stoneRepository = locator<StoneRepository>();
+                        List<Stone> listStone = await _stoneRepository.getAllStones();
+                        Stone stone = await _stoneRepository.getOneStone('HYHSErnEiAQ3vwGaI7rC');
                         print('END TEST');
                       },
                     ),

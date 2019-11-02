@@ -1,31 +1,45 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edelsten/core/models/model.dart';
+
 class Stone {
-  int id;
+  String id;
   String title;
   String overview;
-  String picture;
-  List countries;
   String ethymology;
-  String group;
-  String chemicalComposition;
-  String cristallineSystem;
-  String hardness;
+  List<History> histories = new List();
+  List<dynamic> pictures;
+  List<dynamic> countries;
   String description;
-  List histories;
-  List pictures;
+  String hardness;
+  String group;
+  String cristallineSystem;
+  String chemicalComposition;
+  String defaultPicture;
 
-  Stone({
-    this.id, 
-    this.title, 
-    this.overview, 
-    this.picture,
-    this.countries,
-    this.ethymology,
-    this.group,
-    this.chemicalComposition,
-    this.cristallineSystem,
-    this.hardness,
-    this.description,
-    this.histories,
-    this.pictures
-  });
+  Stone.fromSnapshot(DocumentSnapshot snapshot) {
+    id = snapshot.documentID;
+    title = snapshot['title'];
+    overview = snapshot['overview'];
+    description = snapshot['description'];
+    hardness = snapshot['hardness'];
+    group = snapshot['group'];
+    cristallineSystem = snapshot['cristallineSystem'];
+    chemicalComposition = snapshot['chemicalComposition'];
+    countries = new List<dynamic>.from(snapshot['countries']);
+    pictures = new List<dynamic>.from(snapshot['pictures']);
+    ethymology = snapshot['ethymology'];
+    defaultPicture = snapshot['defaultPicture'];
+  }
+
+  String toString(){
+    var result = 'id: ' + id + ' | title: ' + title + ' | overview: ' + overview + ' | stoneDescription: ' + 
+      description + ' | hardness: ' + hardness + ' | group: ' + group + ' | cristallineSystem:' + 
+      cristallineSystem + ' | chemicalComposition: ' + chemicalComposition + ' | etymology: ' + ethymology + ' | ';
+    result+= 'countries: [';
+    countries.forEach((e) => {
+      result += e + ', '
+    });
+    result+= ']';
+    return result;
+  }
 }

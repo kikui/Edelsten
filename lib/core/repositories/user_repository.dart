@@ -53,16 +53,16 @@ class UserRepository {
   }
 
   // method get user favorites(user uuid)
-  Future<List<Article>> getUserFavorites(List<dynamic> listReference) async {
-    List<Article> listFavorites = List();
+  Future<List<Stone>> getUserFavorites(List<dynamic> listReference) async {
+    List<Stone> listFavorites = List();
     DocumentReference articleReference;
     DocumentSnapshot articleSnapshot;
-    Article article;
+    Stone article;
 
     listReference.forEach((e) async => {
       articleReference = e,
       articleSnapshot = await articleReference.get(),
-      article = Article.fromSnapshot(articleSnapshot),
+      article = Stone.fromSnapshot(articleSnapshot),
       listFavorites.add(article)
     });
 
