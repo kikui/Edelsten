@@ -1,54 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:edelsten/core/models/history.dart';
+import 'package:edelsten/core/models/model.dart';
 
 class Stone {
   String id;
   String title;
   String overview;
-  String picture;
   String ethymology;
-  String group;
-  String chemicalComposition;
-  String cristallineSystem;
-  String hardness;
+  List<History> histories = new List();
+  List<dynamic> pictures;
+  List<dynamic> countries;
   String description;
-  List<dynamic> countries = List<dynamic>();
-  List<dynamic> histories = List<dynamic>();
-  List<dynamic> pictures = List<dynamic>();
+  String hardness;
+  String group;
+  String cristallineSystem;
+  String chemicalComposition;
+  String defaultPicture;
 
-  Stone({
-    this.id, 
-    this.title, 
-    this.overview, 
-    this.picture,
-    this.countries,
-    this.ethymology,
-    this.group,
-    this.chemicalComposition,
-    this.cristallineSystem,
-    this.hardness,
-    this.description,
-    this.histories,
-    this.pictures
-  });
-
-  Stone.fromSnapshot(DocumentSnapshot snapshot){
+  Stone.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
-    title = snapshot.data['title'];
-    overview = snapshot.data['overview'];
-    description = snapshot.data['description'];
-    hardness = snapshot.data['hardness'];
-    group = snapshot.data['group'];
-    cristallineSystem = snapshot.data['cristallineSystem'];
-    chemicalComposition = snapshot.data['chemicalComposition'];
-    countries = snapshot.data['countries'];
-    ethymology = snapshot.data['ethymology'];
+    title = snapshot['title'];
+    overview = snapshot['overview'];
+    description = snapshot['description'];
+    hardness = snapshot['hardness'];
+    group = snapshot['group'];
+    cristallineSystem = snapshot['cristallineSystem'];
+    chemicalComposition = snapshot['chemicalComposition'];
+    countries = new List<dynamic>.from(snapshot['countries']);
+    pictures = new List<dynamic>.from(snapshot['pictures']);
+    ethymology = snapshot['ethymology'];
+    defaultPicture = snapshot['defaultPicture'];
+  }
 
-    List<dynamic> histories = List<dynamic>();
-    for (var historyDocReference in snapshot.data["histories"]){
-      var history = History.fromDocumentReference(historyDocReference);
-      histories.add(history);
-    }
-    histories = histories;
+  String toString(){
+    var result = 'id: ' + id + ' | title: ' + title + ' | overview: ' + overview + ' | stoneDescription: ' + 
+      description + ' | hardness: ' + hardness + ' | group: ' + group + ' | cristallineSystem:' + 
+      cristallineSystem + ' | chemicalComposition: ' + chemicalComposition + ' | etymology: ' + ethymology + ' | ';
+    result+= 'countries: [';
+    countries.forEach((e) => {
+      result += e + ', '
+    });
+    result+= ']';
+    return result;
+  }
+
+  Stone(String title){
+    this.title = title;
   }
 }

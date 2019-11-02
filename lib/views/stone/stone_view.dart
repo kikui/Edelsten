@@ -79,7 +79,7 @@ class _StoneViewState extends State<StoneView>
             Opacity(
               opacity: 1,
               child: new Image.asset(
-                'assets/images/${widget.stone.picture}',
+                'assets/images/${widget.stone.defaultPicture}',
                 width: size.width,
                 height: size.height,
                 fit: BoxFit.cover,

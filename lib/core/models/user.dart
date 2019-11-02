@@ -5,14 +5,14 @@ class User {
   String id;
   String pseudo;
   bool administrator;
-  List<dynamic> favorites = List();
-  List<Book> books = List();
+  List<dynamic> favorites;
+  List<Book> books = new List<Book>();
   
   User.fromSnapshot(DocumentSnapshot snapshot) {
     id = snapshot.documentID;
     pseudo = snapshot['pseudo'];
     administrator = snapshot['administrator'];
-    favorites = snapshot['favorites'];
+    favorites = new List<dynamic>.from(snapshot['favorites']);
   }
 
   String toString(){
@@ -22,6 +22,12 @@ class User {
     });
     result += ']';
     return result;
+  }
+
+  User(String id, String pseudo, bool admin){
+    this.id = id;
+    this.pseudo = pseudo;
+    this.administrator = admin;
   }
 
   User.initial(){

@@ -7,7 +7,9 @@ class History{
 
  History({this.description, this.period, this.title});
 
- History.fromDocumentReference(DocumentReference docReference){
-   var document =  docReference.get();
- }
+ History.fromSnapshot(DocumentSnapshot snapshot){
+    title = snapshot['title'];
+    description = snapshot['description'];
+    period = snapshot['period'];
+  }
 }
