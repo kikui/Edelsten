@@ -78,13 +78,10 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       onTap: () async {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   RoutesNames.stones,
-                        // );
-                        UserRepository _userRepository = locator<UserRepository>();
-                        User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
-                        print(userData);
+                        Navigator.pushNamed(
+                          context,
+                          RoutesNames.stones,
+                        );
                       },
                     ),
                   ),

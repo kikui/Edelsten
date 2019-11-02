@@ -18,10 +18,21 @@ class StoneRepository {
   }
   
   Future<List<Stone>> getAllStones() async {
-    var stoneList = new List<Stone>();  
-    var collectionData = Firestore.instance.collection(stonesString);
-
-    
+    var stonesList = new List<Stone>();  
+    try {
+      var stoneCollection = Firestore.instance.collection(stonesString);
+      var documents = (await stoneCollection.getDocuments()).documents;
+      for (var document in documents) {
+        var stone = Stone(
+          title: document.data["title"],
+          id: document.data["id"],
+        );
+        stonesList.add(stone);
+      }
+    } catch (e) {
+      print(e);
+      return stonesList;
+    }
   }
   
   // Future<List<Stone>> getAllStones2() async {
@@ -35,7 +46,7 @@ class StoneRepository {
 
 var stones = [
   Stone(
-    id: 0,
+    id: "0",
     title: 'Amethyst',
     overview: 'Protéger contre l\'ivresse',
     picture: 'amethyst.jpg',
@@ -76,7 +87,7 @@ var stones = [
     ],
   ),
   Stone(
-    id: 1,
+    id: "1",
     title: 'Obsidienne',
     overview: 'Quête de soi et de vérité',
     picture: 'obsidian.jpg',
@@ -117,7 +128,7 @@ var stones = [
     ],
   ),
   Stone(
-    id: 2,
+    id: "2",
     title: 'Emeraude',
     overview: 'Favorise l\'amitié',
     picture: 'emerald.jpg',
@@ -158,7 +169,7 @@ var stones = [
     ],
   ),
   Stone(
-    id: 3,
+    id: "3",
     title: 'Ruby',
     overview: 'Favorise l\'amitié',
     picture: 'ruby.jpg',
@@ -199,7 +210,7 @@ var stones = [
     ],
   ),
   Stone(
-    id: 4,
+    id: "4",
     title: 'Quartz',
     overview: 'Favorise l\'amitié',
     picture: 'quartz.jpg',

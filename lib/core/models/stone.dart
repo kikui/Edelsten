@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:edelsten/core/models/history.dart';
+
 class Stone {
-  int id;
+  String id;
   String title;
   String overview;
   String picture;
-  List countries;
   String ethymology;
   String group;
   String chemicalComposition;
   String cristallineSystem;
   String hardness;
   String description;
-  List histories;
-  List pictures;
+  List<dynamic> countries = List<dynamic>();
+  List<dynamic> histories = List<dynamic>();
+  List<dynamic> pictures = List<dynamic>();
 
   Stone({
     this.id, 
@@ -28,4 +31,24 @@ class Stone {
     this.histories,
     this.pictures
   });
+
+  Stone.fromSnapshot(DocumentSnapshot snapshot){
+    id = snapshot.documentID;
+    title = snapshot.data['title'];
+    overview = snapshot.data['overview'];
+    description = snapshot.data['description'];
+    hardness = snapshot.data['hardness'];
+    group = snapshot.data['group'];
+    cristallineSystem = snapshot.data['cristallineSystem'];
+    chemicalComposition = snapshot.data['chemicalComposition'];
+    countries = snapshot.data['countries'];
+    ethymology = snapshot.data['ethymology'];
+
+    List<dynamic> histories = List<dynamic>();
+    for (var historyDocReference in snapshot.data["histories"]){
+      var history = History.fromDocumentReference(historyDocReference);
+      histories.add(history);
+    }
+    histories = histories;
+  }
 }
