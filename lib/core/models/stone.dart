@@ -42,4 +42,8 @@ class Stone {
     result+= ']';
     return result;
   }
+
+  Stone(String title){
+    this.title = title;
+  }
 }
