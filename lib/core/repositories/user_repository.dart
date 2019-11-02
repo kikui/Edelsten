@@ -8,9 +8,15 @@ class UserRepository {
   final Firestore dataBase = Firestore.instance;  
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // method auth
+  // method login
   Future<FirebaseUser> loginUser({String email, String password}) async {
-    var result  = (await _auth.signInWithEmailAndPassword(email: email, password: password)).user;
+    FirebaseUser result  = (await _auth.signInWithEmailAndPassword(email: email, password: password)).user;
+    return result;
+  }
+
+  // method register
+  Future<FirebaseUser> registerUser({String email, String password}) async {
+    FirebaseUser result  = (await _auth.createUserWithEmailAndPassword(email: email, password: password)).user;
     return result;
   }
 
@@ -22,7 +28,7 @@ class UserRepository {
   }
 
   // method create userData(uuid)
-  void createUser(User user) async {
+  void createUserData(User user) async {
     CollectionReference userCollectionReference = dataBase.collection('users');
     Map dataUser = Map<String, dynamic>();
     dataUser['pseudo'] = user.pseudo;
