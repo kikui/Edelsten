@@ -1,7 +1,7 @@
 import 'dart:io';
-
-import 'package:edelsten/core/models/article.dart';
+import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/models/user.dart';
+import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/locator.dart';
@@ -82,23 +82,10 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       onTap: () async {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   RoutesNames.stones,
-                        // );
-                        UserRepository _userRepository = locator<UserRepository>();
-                        AuthenticationService _auth = locator<AuthenticationService>();
-
-                        _auth.register('b@b.com', '123456', 'kikuiTest');
-                        // User userData = await _userRepository.getUserData("JzBpHeHWtqAFazpj5v0o");
-                        // List<Article> listFavory = List();
-                        // listFavory = await _userRepository.getUserFavorites(userData.favorites);
-                        //_userRepository.addFavory(userData, 'kRBsrPnt3trRl9DATQz2');
-                        //_userRepository.deleteFavory(userData, 'kRBsrPnt3trRl9DATQz2');
-                        // User userCreate = User('id', 'pseudoTest', false);
-                        // await _userRepository.createUser(userCreate);
-
-                        print('END TEST');
+                        Navigator.pushNamed(
+                          context,
+                          RoutesNames.stones,
+                        );
                       },
                     ),
                   ),

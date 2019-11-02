@@ -59,23 +59,23 @@ class UserRepository {
   }
 
   // method get user favorites(user uuid)
-  Future<List<Article>> getUserFavorites(List<dynamic> listReference) async {
-    List<Article> listFavorites = List();
-    DocumentReference articleReference;
-    DocumentSnapshot articleSnapshot;
-    Article article;
+  Future<List<Stone>> getUserFavorites(List<dynamic> listReference) async {
+    List<Stone> listFavorites = List();
+    DocumentReference stoneReference;
+    DocumentSnapshot stoneSnapshot;
+    Stone stone;
 
     listReference.forEach((e) async => {
-      articleReference = e,
-      articleSnapshot = await articleReference.get(),
-      article = Article.fromSnapshot(articleSnapshot),
-      listFavorites.add(article)
+      stoneReference = e,
+      stoneSnapshot = await stoneReference.get(),
+      stone = Stone.fromSnapshot(stoneSnapshot),
+      listFavorites.add(stone)
     });
 
     return listFavorites;
   }
 
-  // method add favorite(article uuid)
+  // method add favorite(stone uuid)
   void addFavory(User user, String uuidStone) {
     // get document ref
     CollectionReference stoneCollectionReference = dataBase.collection('stones');
@@ -89,7 +89,7 @@ class UserRepository {
     userDocumentReference.updateData(data);
   }
 
-  //method delete favorite(article uuid)
+  //method delete favorite(stone uuid)
   void deleteFavory(User user, String uuidStone) async {
     CollectionReference stoneCollectionReference = dataBase.collection('stones');
     DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
