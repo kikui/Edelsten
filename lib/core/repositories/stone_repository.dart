@@ -16,7 +16,6 @@ class StoneRepository {
     stonesSnapshot.forEach((e) => {
       stoneList.add(Stone.fromSnapshot(e))
     });
-    print('END GET ALL');
     return stoneList;
   }
 
@@ -26,6 +25,15 @@ class StoneRepository {
     DocumentReference documentStoneReference = collectionStoneReference.document(uuidStone);
     DocumentSnapshot snapshotStone = await documentStoneReference.get();
     Stone stoneData = Stone.fromSnapshot(snapshotStone);
+
+    CollectionReference collectionHistoriesReference = documentStoneReference.collection('histories');
+    QuerySnapshot querySnapshot = await collectionHistoriesReference.getDocuments();
+    List<DocumentSnapshot> historiesSnapshot = querySnapshot.documents;
+
+    historiesSnapshot.forEach((e) => {
+      stoneData.histories.add(History.fromSnapshot(e))
+    });
+    
     print('END GET ON');
     return stoneData;
   }
