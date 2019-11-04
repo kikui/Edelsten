@@ -19,6 +19,8 @@ dependencies:
   flushbar: ^1.9.1
   sliding_up_panel: ^0.3.6
   cached_network_image: ^1.1.2+1
+  transparent_image: ^1.0.0
+
 
 
   cupertino_icons: ^0.1.2
