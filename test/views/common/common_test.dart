@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:edelsten/views/common/common.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 
 void main() {
   testWidgets('My widget has a title and a description', (WidgetTester tester) async {

@@ -2,8 +2,7 @@ import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/base_view.dart';
-import 'package:edelsten/views/common/common.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
@@ -36,8 +35,14 @@ class LoginView extends StatelessWidget {
                             child: IntrinsicWidth(
                               child: Column(
                                 children: [
-                                  fillableField('Email', model.emailController, false),
-                                  fillableField('Mot de passe', model.passwordController, true),
+                                  InputFieldWidget(
+                                    fieldText: 'Email', 
+                                    fieldController: model.emailController, 
+                                    obscureText: false),
+                                  InputFieldWidget(
+                                    fieldText: 'Mot de passe', 
+                                    fieldController: model.passwordController,
+                                    obscureText: true),
                                   model.state == ViewState.Busy
                                       ? CircularProgressIndicator()
                                       : Container(
@@ -53,13 +58,13 @@ class LoginView extends StatelessWidget {
                                               var loginSuccess = await model.login();
                                               if (loginSuccess) {
                                                 Navigator.pushNamed(context, RoutesNames.stones);
-                                                loginNotification(
+                                                LoginNotificationWidget(
                                                   message: "Wesh poto, bien ou bien?",
                                                   isSuccedLogin: true,
                                                   context: context);
                                               }
                                               else {
-                                                loginNotification(
+                                                LoginNotificationWidget(
                                                   message: model.errorMessage,
                                                   isSuccedLogin: false,
                                                   context: context);
@@ -98,43 +103,5 @@ class LoginView extends StatelessWidget {
                 ],
               ),
             ));
-  }
-  Widget loginNotification({ String message, bool isSuccedLogin, BuildContext context}){
-    Color color = Colors.red[200]; 
-    if (isSuccedLogin)
-      color = Colors.green[300];
-    
-    return Flushbar(
-      title: isSuccedLogin ? 'Connexion réussie' : 'Connexion échouée',
-      message: message ,
-      flushbarPosition: FlushbarPosition.TOP,
-      backgroundColor: color,
-      duration: Duration(seconds: 4),
-    )..show(context);
-  }
-
-  Widget fillableField(String fieldText, TextEditingController fieldController, bool obscureText) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          hintText: fieldText,
-          contentPadding:
-              const EdgeInsets.only(left: 100, bottom: 20, top: 20, right: 100),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(25.7),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(25.7),
-          ),
-        ),
-        controller: fieldController,
-        obscureText: obscureText,
-      ),
-    );
   }
 }

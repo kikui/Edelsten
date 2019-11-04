@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edelsten/views/common/common.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 
 class HistoriesStoneWidget extends StatelessWidget {
   const HistoriesStoneWidget({@required this.histories});

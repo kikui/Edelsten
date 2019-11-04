@@ -3,12 +3,15 @@ import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/login/login.dart';
 import 'package:edelsten/views/stone/stone.dart';
+import 'package:edelsten/views/in_coming_view.dart';
 import 'package:flutter/material.dart';
 
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RoutesNames.inComing:
+        return MaterialPageRoute(builder: (_) => InComingView());
       case RoutesNames.home:
         return MaterialPageRoute(builder: (_) => HomeView());
       case RoutesNames.login:

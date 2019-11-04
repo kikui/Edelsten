@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:edelsten/views/common/common.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:edelsten/core/models/stone.dart';
 
 class OverviewStoneWidget extends StatelessWidget {
@@ -74,6 +74,7 @@ class OverviewStoneWidget extends StatelessWidget {
                             ],
                           )),
                     ),
+                    SizedBox(width: 20,),
                     Expanded(
                       flex: 4,
                       child: Container(
@@ -106,6 +107,7 @@ class OverviewStoneWidget extends StatelessWidget {
                             ],
                           )),
                     ),
+                    SizedBox(width: 20,),
                     Expanded(
                       flex: 4,
                       child: Container(
