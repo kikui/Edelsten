@@ -32,7 +32,7 @@ class AuthenticationService  {
     User userData = new User(firebaseUser.uid, pseudo, false);
     
     if (firebaseUser != null){
-      await _userRepository.createUserData(userData);
+     _userRepository.createUserData(userData);
     }
     var hasUser = userData != null;
     if (hasUser) {
