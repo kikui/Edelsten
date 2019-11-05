@@ -10,7 +10,7 @@ class LoginModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final TextEditingController emailController = TextEditingController();
   final  TextEditingController passwordController = TextEditingController();
-  String errorMessage;
+  String errorMessage = "Contacter un admin pour vous connecter avec cet mail !";
 
   Future<bool> login() async {
     setState(ViewState.Busy);
@@ -44,6 +44,7 @@ class LoginModel extends BaseModel {
       "ERROR_WRONG_PASSWORD" : "Le mot de passe n'est pas valide!",
       "FirebaseException" : "Erreur de connexion avec la base de données!"
       };
+    
     return dict[code];
   }
 

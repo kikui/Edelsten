@@ -1,4 +1,4 @@
-export 'article.dart';
+export 'stone.dart';
 export 'book.dart';
 export 'comment.dart';
 export 'history.dart';

@@ -17,7 +17,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => StonesView());
       case RoutesNames.stone:
         var stone = settings.arguments as Stone;
-        return MaterialPageRoute(builder: (_) => StoneView(stone: stone));
+        return MaterialPageRoute(builder: (_) => StoneView(uuidStone: stone.id));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

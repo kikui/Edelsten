@@ -1,27 +1,49 @@
-
 import 'dart:async';
-import 'package:edelsten/core/article_repository/article_repository.dart';
+import 'dart:core';
 import 'package:edelsten/core/models/model.dart';
+import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService  {
   
   StreamController<User> userController = StreamController<User>();
-  Api _api = locator<Api>();
+  UserRepository _userRepository = locator<UserRepository>();
 
-  Future<bool> login (String identifier, String password) async {
+  Future<bool> login(String identifier, String password) async {
     
-    var firebaseUser;
-    firebaseUser = await _api.loginUser(email: identifier, password: password);
-
-    User fetcheduser;
+    FirebaseUser firebaseUser;
+    firebaseUser = await _userRepository.loginUser(email: identifier, password: password);
+    User userData;
+    
     if (firebaseUser != null){
-       //fetcheduser = await _api.getUserData(firebaseUser.uid);
-       fetcheduser = User.initial();
+      userData = await _userRepository.getUserData(firebaseUser.uid);
     }
-    var hasUser = fetcheduser != null;
+    var hasUser = userData != null;
     if (hasUser) {
-      userController.add(fetcheduser);
+      userController.add(userData);
+    }
+    else{
+      _userRepository.loginOut();
+    }
+    return hasUser;
+  }
+
+  Future logout() async{
+    await _userRepository.loginOut();
+  }
+
+  Future<bool> register(String identifier, String password, String pseudo) async {
+    FirebaseUser firebaseUser;
+    firebaseUser = await _userRepository.registerUser(email: identifier, password: password);
+    User userData = new User(firebaseUser.uid, pseudo, false);
+    
+    if (firebaseUser != null){
+     _userRepository.createUserData(userData);
+    }
+    var hasUser = userData != null;
+    if (hasUser) {
+      userController.add(userData);
     }
     return hasUser;
   }

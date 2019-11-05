@@ -8,4 +8,9 @@ class Book{
     title = snapshot['title'];
     body = snapshot['body'];
   }
+
+  Book(String title, String body){
+    this.title = title;
+    this.body = body;
+  }
 }
