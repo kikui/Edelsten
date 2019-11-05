@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/models/user.dart';
+import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
@@ -82,10 +85,18 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       onTap: () async {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesNames.stones,
-                        );
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   RoutesNames.stones,
+                        // );
+                        CommentRepository _commentRepo = locator<CommentRepository>();
+                        List<Comment> list = await _commentRepo.getComments('HYHSErnEiAQ3vwGaI7rC');
+                        Comment comment = new Comment('title', 'idStone', 'kikui', 'body');
+                        // await _commentRepo.addComment(comment);
+                        if(list.length > 0){
+                          await _commentRepo.enableRequest(list.first);
+                        }
+                        print('End test');
                       },
                     ),
                   ),
