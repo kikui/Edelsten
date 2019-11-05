@@ -17,7 +17,7 @@ class PicturesStoneWidget extends StatelessWidget {
               elevation: 5.0,
               child: new Container(
                   child: FittedBox(
-                      child: Image.asset('assets/images/${pictures[index]}'),
+                      child: Image.network(pictures[index]),
                       fit: BoxFit.cover)),
             );
           },

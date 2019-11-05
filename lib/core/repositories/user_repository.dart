@@ -14,6 +14,13 @@ class UserRepository {
     return result;
   }
 
+  Future<FirebaseUser> currentUser() async {
+    return await _auth.currentUser();
+  }
+
+  Future loginOut({String email, String password}) async {
+    await _auth.signOut();
+  }
   // method register
   Future<FirebaseUser> registerUser({String email, String password}) async {
     FirebaseUser result  = (await _auth.createUserWithEmailAndPassword(email: email, password: password)).user;
@@ -47,8 +54,11 @@ class UserRepository {
   Future<User> getUserData(String uuidUser) async {  
     DocumentReference userDocumentReference = getUserDocument(uuidUser);
     DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
-    User userData = User.fromSnapshot(userDocumentSnapshot);
 
+    if (userDocumentSnapshot.data == null){
+      return null;
+    }
+    User userData = User.fromSnapshot(userDocumentSnapshot);
     // get userBooks
     List<DocumentSnapshot> booksSnapshot = (await userDocumentReference.collection('books').getDocuments()).documents;
     booksSnapshot.forEach((e) => {

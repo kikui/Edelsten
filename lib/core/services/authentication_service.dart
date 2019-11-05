@@ -23,7 +23,14 @@ class AuthenticationService  {
     if (hasUser) {
       userController.add(userData);
     }
+    else{
+      _userRepository.loginOut();
+    }
     return hasUser;
+  }
+
+  Future logout() async{
+    await _userRepository.loginOut();
   }
 
   Future<bool> register(String identifier, String password, String pseudo) async {
@@ -32,7 +39,7 @@ class AuthenticationService  {
     User userData = new User(firebaseUser.uid, pseudo, false);
     
     if (firebaseUser != null){
-      await _userRepository.createUserData(userData);
+     _userRepository.createUserData(userData);
     }
     var hasUser = userData != null;
     if (hasUser) {

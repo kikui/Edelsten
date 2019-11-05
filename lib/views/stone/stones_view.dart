@@ -80,7 +80,7 @@ class StoneListItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: new BorderRadius.all(Radius.circular(20)),
               image: DecorationImage(
-                image: AssetImage('assets/images/${stone.defaultPicture}'),
+                image: NetworkImage(stone.defaultPicture),
                 fit: BoxFit.cover,
               ),
             ),

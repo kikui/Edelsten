@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:core' ;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edelsten/core/models/model.dart';
+
+const String STONES_STRING = 'stones';
+const String STONES_HISTORIES = 'histories';
 
 class StoneRepository {
   
@@ -10,9 +12,8 @@ class StoneRepository {
 
   // method get all stone
   Future<List<Stone>> getAllStones() async {
-    List<Stone> stoneList = new List();  
-    CollectionReference collectionStoneReference = dataBase.collection('stones');
-    List<DocumentSnapshot> stonesSnapshot = (await collectionStoneReference.getDocuments()).documents;
+    var stoneList = new List<Stone>();  
+    List<DocumentSnapshot> stonesSnapshot = (await dataBase.collection(STONES_STRING).getDocuments()).documents;
     stonesSnapshot.forEach((e) => {
       stoneList.add(Stone.fromSnapshot(e))
     });
@@ -21,12 +22,12 @@ class StoneRepository {
 
   // method get one stone
   Future<Stone> getOneStone(String uuidStone) async {
-    CollectionReference collectionStoneReference = dataBase.collection('stones');
+    CollectionReference collectionStoneReference = dataBase.collection(STONES_STRING);
     DocumentReference documentStoneReference = collectionStoneReference.document(uuidStone);
     DocumentSnapshot snapshotStone = await documentStoneReference.get();
     Stone stoneData = Stone.fromSnapshot(snapshotStone);
 
-    Query collectionHistoriesReference = documentStoneReference.collection('histories');
+    Query collectionHistoriesReference = documentStoneReference.collection(STONES_HISTORIES);
     QuerySnapshot querySnapshot = await collectionHistoriesReference.getDocuments();
     List<DocumentSnapshot> historiesSnapshot = querySnapshot.documents;
 
@@ -37,15 +38,15 @@ class StoneRepository {
   }
 
   Future<DocumentReference> getDocumentStoneByTitle(String stoneTitle) async {
-    Query collectionTitleWhere = dataBase.collection('stones').where('title', isEqualTo: stoneTitle);
+    Query collectionTitleWhere = dataBase.collection(STONES_STRING).where('title', isEqualTo: stoneTitle);
     QuerySnapshot querySnapshot = await collectionTitleWhere.getDocuments();
     List<DocumentSnapshot> snapshot = querySnapshot.documents;
-    DocumentReference stoneReference = dataBase.collection('stones').document(snapshot.first.documentID);
+    DocumentReference stoneReference = dataBase.collection(STONES_STRING).document(snapshot.first.documentID);
     return stoneReference;
   }
 
   Future<bool> createStoneData(Stone stoneData) async {
-    CollectionReference stoneCollectionReference = dataBase.collection('stones');
+    CollectionReference stoneCollectionReference = dataBase.collection(STONES_STRING);
     bool duplicateData = await checkStoneAlreadyExist(stoneData.title);
     if(duplicateData == true){
       return false;
@@ -59,13 +60,13 @@ class StoneRepository {
     historyMap['title'] = '';
     historyMap['description'] = '';
     historyMap['period'] = '';
-    await documentReferenceStoneGetted.collection('histories').add(historyMap);
+    await documentReferenceStoneGetted.collection(STONES_HISTORIES).add(historyMap);
     return true;
   }
 
   // method check if stone already exist
   Future<bool> checkStoneAlreadyExist(String stoneTitle) async {
-    Query collectionTitleWhere = dataBase.collection('stones').where('title', isEqualTo: stoneTitle);
+    Query collectionTitleWhere = dataBase.collection(STONES_STRING).where('title', isEqualTo: stoneTitle);
     QuerySnapshot querySnapshot = await collectionTitleWhere.getDocuments();
     List<DocumentSnapshot> snapshot = querySnapshot.documents;
 

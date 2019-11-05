@@ -10,7 +10,7 @@ class LoginModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final TextEditingController emailController = TextEditingController();
   final  TextEditingController passwordController = TextEditingController();
-  String errorMessage;
+  String errorMessage = "Contacter un admin pour vous connecter avec cet mail !";
 
   Future<bool> login() async {
     setState(ViewState.Busy);
