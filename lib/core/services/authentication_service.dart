@@ -23,7 +23,14 @@ class AuthenticationService  {
     if (hasUser) {
       userController.add(userData);
     }
+    else{
+      _userRepository.loginOut();
+    }
     return hasUser;
+  }
+
+  Future logout() async{
+    await _userRepository.loginOut();
   }
 
   Future<bool> register(String identifier, String password, String pseudo) async {
