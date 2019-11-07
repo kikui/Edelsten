@@ -1,10 +1,3 @@
-import 'dart:io';
-import 'package:edelsten/core/models/stone.dart';
-import 'package:edelsten/core/models/user.dart';
-import 'package:edelsten/core/repositories/stone_repository.dart';
-import 'package:edelsten/core/repositories/user_repository.dart';
-import 'package:edelsten/core/services/authentication_service.dart';
-import 'package:edelsten/locator.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:flutter/material.dart';

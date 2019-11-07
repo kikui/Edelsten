@@ -56,17 +56,11 @@ class LoginView extends StatelessWidget {
                                                         0xFF071938))),
                                             onPressed: () async {
                                               var loginSuccess = await model.login();
-                                              if (loginSuccess) {
-                                                Navigator.pushNamed(context, RoutesNames.stones);
-                                                LoginNotificationWidget(
-                                                  message: "Wesh poto, bien ou bien?",
-                                                  isSuccedLogin: true,
-                                                  context: context);
-                                              }
-                                              else {
-                                                LoginNotificationWidget(
+                                              if (!loginSuccess) {
+                                                getNotificationWidget(
                                                   message: model.errorMessage,
-                                                  isSuccedLogin: false,
+                                                  isSucced: false,
+                                                  title: 'Connexion échouée',
                                                   context: context);
                                               }
                                             },
