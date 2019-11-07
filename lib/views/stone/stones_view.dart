@@ -1,12 +1,72 @@
 import 'package:edelsten/core/models/stone.dart';
-import 'package:edelsten/core/view_state.dart';
-import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:edelsten/routes/routes_names.dart';
-import 'package:edelsten/views/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:edelsten/core/view_state.dart';
+import 'package:edelsten/core/viewmodels/viewmodel.dart';
+import 'package:edelsten/views/home/home.dart';
+import 'package:edelsten/views/in_coming_view.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import '../base_view.dart';
 
-class StonesView extends StatelessWidget {
+class StonesView extends StatefulWidget {
+  StonesView({Key key}) : super(key: key);
+
+  @override
+  _StonesViewState createState() => _StonesViewState();
+}
+
+class _StonesViewState extends State<StonesView> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static List<Widget> _page = <Widget>[
+    StonesListView(),
+    InComingView(),
+    InComingView(),
+    HomeView(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: _page[_selectedIndex],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            title: Text('Pierres'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            title: Text('Notes'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            title: Text('Favoris'),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), title: Text('Paramètres'))
+        ],
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Colors.white,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class StonesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<StonesModel>(
@@ -38,16 +98,11 @@ class StonesView extends StatelessWidget {
                         ),
                       )
                     : Expanded(
-                        child: stonesListView(model.stoneToShow()),
+                        child:
+                            StonesListViewWidget(stones: model.stoneToShow()),
                       )
               ],
             ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: BottomNavigationBarWidget(),
           ),
         ],
       )),
@@ -63,96 +118,3 @@ Widget stonesListView(List<Stone> stones) => ListView.builder(
             Navigator.pushNamed(context, RoutesNames.stone, arguments: stones[index]);
           },
         ));
-
-class StoneListItem extends StatelessWidget {
-  final Stone stone;
-  final Function onTap;
-
-  StoneListItem({this.stone, this.onTap});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-          height: 200,
-          child: Container(
-            margin: EdgeInsets.only(bottom: 20, right: 20, left: 20),
-            decoration: BoxDecoration(
-              borderRadius: new BorderRadius.all(Radius.circular(20)),
-              image: DecorationImage(
-                image: NetworkImage(stone.defaultPicture),
-                fit: BoxFit.cover,
-              ),
-            ),
-            padding: const EdgeInsets.all(25),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Text(
-                          stone?.title,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                      ),
-                      Text(
-                        stone?.overview,
-                        maxLines: 2,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )),
-    );
-  }
-}
-
-class SearchWidget extends StatelessWidget {
-  final StonesModel model;
-
-  SearchWidget({@required this.model});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: model.searchIconPressed,
-        child: Container(
-          margin: EdgeInsets.only(left: 45, right: 45, top: 50),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
-                    ),
-                    child: Row(
-                      children: [
-                        IconButton(
-                            icon: model.searchIcon,
-                            onPressed: () {
-                              model.searchIconPressed();
-                            }),
-                        Flexible(
-                          child: model.searchBar,
-                        ),
-                      ],
-                    )),
-              ),
-            ],
-          ),
-        ));
-  }
-}

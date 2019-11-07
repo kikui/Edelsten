@@ -1,10 +1,7 @@
-import 'package:edelsten/core/models/stone.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stone_model.dart';
 import 'package:edelsten/views/base_view.dart';
-import 'package:edelsten/views/stone/stone.dart';
-import 'package:edelsten/views/stone/stone_histories.dart';
-import 'package:edelsten/views/stone/stone_pictures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';

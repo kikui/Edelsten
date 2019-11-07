@@ -6,8 +6,7 @@ import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/locator.dart';
 import 'package:edelsten/routes/routes_names.dart';
-import 'package:edelsten/views/common/common.dart';
-import 'package:edelsten/views/login/login.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -38,41 +37,26 @@ class _HomeViewState extends State<HomeView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          side: BorderSide(color: const Color(0xFF071938))),
-                      onPressed: () {
+                  ButtonWidget(
+                      color: const Color(0xFF071938),
+                      text: 'Se connecter',
+                      function: () {
                         Navigator.pushNamed(
                           context,
                           RoutesNames.login,
                         );
-                      },
-                      color: const Color(0xFF071938),
-                      textColor: Colors.white,
-                      padding: EdgeInsets.only(
-                          top: 20, right: 100, bottom: 20, left: 100),
-                      child:
-                          Text("Se connecter", style: TextStyle(fontSize: 20)),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          side: BorderSide(color: const Color(0xFFB8C8E3))),
-                      onPressed: () {},
+                      }),
+                  ButtonWidget(
                       color: const Color(0xFFB8C8E3),
-                      textColor: Colors.white,
-                      padding: EdgeInsets.only(
-                          top: 20, right: 100, bottom: 20, left: 100),
-                      child: Text("S'inscrire", style: TextStyle(fontSize: 20)),
-                    ),
-                  ),
+                      text: 'S\'inscrire',
+                      function: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesNames.inComing,
+                        );
+                      }),
                   Container(
+                    padding: EdgeInsets.only(top: 15),
                     child: InkWell(
                       child: Text(
                         "Continuer en tant qu'utilisateur",
@@ -81,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
                           color: const Color(0xFFABAFB2),
                         ),
                       ),
-                      onTap: () async {
+                      onTap: () {
                         Navigator.pushNamed(
                           context,
                           RoutesNames.stones,
