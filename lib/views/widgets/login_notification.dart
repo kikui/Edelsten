@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 
-class LoginNotificationWidget extends StatelessWidget {
-  const LoginNotificationWidget(
+class NotificationWidget extends StatelessWidget {
+  const NotificationWidget(
       {@required this.message,
-      @required this.isSuccedLogin,
+      @required this.isSucced,
+      @required this.title,
       @required this.context});
 
   final String message;
-  final bool isSuccedLogin;
+  final bool isSucced;
+  final String title;
   final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
     Color color = Colors.red[200];
-    if (isSuccedLogin) color = Colors.green[300];
+    if (isSucced) color = Colors.green[300];
 
     return Flushbar(
-      title: isSuccedLogin ? 'Connexion réussie' : 'Connexion échouée',
+      title: title,
       message: message,
       flushbarPosition: FlushbarPosition.TOP,
       backgroundColor: color,

@@ -29,8 +29,15 @@ class AuthenticationService  {
     return hasUser;
   }
 
-  Future logout() async{
-    await _userRepository.loginOut();
+  Future<bool> logout() async{
+    try{
+      await _userRepository.loginOut();
+      userController.add(null);
+      return true;
+    }
+    catch(e){
+      return false;
+    }
   }
 
   Future<bool> register(String identifier, String password, String pseudo) async {
