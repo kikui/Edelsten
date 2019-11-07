@@ -29,7 +29,7 @@ class UserRepository {
   }
 
   // method get userDocument(user uuid)
-  DocumentReference getUserDocument(String uuidUser) {
+  DocumentReference _getUserDocument(String uuidUser) {
     CollectionReference userCollectionReference = dataBase.collection('users');
     DocumentReference userDocumentReference = userCollectionReference.document(uuidUser);
     return userDocumentReference;
@@ -44,7 +44,7 @@ class UserRepository {
     dataUser['favorites'] = List();
     await userCollectionReference.document(user.id).setData(dataUser);
 
-    DocumentReference documentUser = getUserDocument(user.id);
+    DocumentReference documentUser = _getUserDocument(user.id);
     Map dataBook = Map<String, dynamic>();
     dataBook['title'] = 'Première page du grimoire';
     dataBook['body'] = '';
@@ -52,7 +52,7 @@ class UserRepository {
   }
 
   Stream<User> getUserData(String uuidUser) {  
-    return getUserDocument(uuidUser).snapshots().map<User>((DocumentSnapshot snapshot) {
+    return _getUserDocument(uuidUser).snapshots().map<User>((DocumentSnapshot snapshot) {
       return User.fromSnapshot(snapshot);
     });
   }
@@ -78,7 +78,7 @@ class UserRepository {
   void addFavory(User user, String uuidStone) {
     CollectionReference stoneCollectionReference = dataBase.collection('stones');
     DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
-    DocumentReference userDocumentReference = getUserDocument(user.id);
+    DocumentReference userDocumentReference = _getUserDocument(user.id);
 
     user.favorites.add(stoneDocumentReference);
     Map data = Map<String, List<dynamic>>();
@@ -90,7 +90,7 @@ class UserRepository {
   void deleteFavory(User user, String uuidStone) async {
     CollectionReference stoneCollectionReference = dataBase.collection('stones');
     DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
-    DocumentReference userDocumentReference = getUserDocument(user.id);
+    DocumentReference userDocumentReference = _getUserDocument(user.id);
 
     user.favorites.remove(stoneDocumentReference);
     Map data = Map<String, List<dynamic>>();
