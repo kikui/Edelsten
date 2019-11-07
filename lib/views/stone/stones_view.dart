@@ -1,6 +1,7 @@
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/models/user.dart';
 import 'package:edelsten/routes/routes_names.dart';
+import 'package:edelsten/views/base_view.dart';
 import 'package:edelsten/views/parameter_view.dart';
 import 'package:flutter/material.dart';
 import 'package:edelsten/core/view_state.dart';
