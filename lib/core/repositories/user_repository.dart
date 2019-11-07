@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/user.dart';
@@ -50,22 +51,10 @@ class UserRepository {
     await documentUser.collection('books').add(dataBook);
   }
 
-  // method get userData(user uuid)
-  Future<User> getUserData(String uuidUser) async {  
-    DocumentReference userDocumentReference = getUserDocument(uuidUser);
-    DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
-
-    if (userDocumentSnapshot.data == null){
-      return null;
-    }
-    User userData = User.fromSnapshot(userDocumentSnapshot);
-    // get userBooks
-    List<DocumentSnapshot> booksSnapshot = (await userDocumentReference.collection('books').getDocuments()).documents;
-    booksSnapshot.forEach((e) => {
-      userData.books.add(Book.fromSnapshot(e))
+  Stream<User> getUserData(String uuidUser) {  
+    return getUserDocument(uuidUser).snapshots().map<User>((DocumentSnapshot snapshot) {
+      return User.fromSnapshot(snapshot);
     });
-
-    return userData;
   }
 
   // method get user favorites(user uuid)
@@ -87,10 +76,8 @@ class UserRepository {
 
   // method add favorite(stone uuid)
   void addFavory(User user, String uuidStone) {
-    // get document ref
     CollectionReference stoneCollectionReference = dataBase.collection('stones');
     DocumentReference stoneDocumentReference = stoneCollectionReference.document(uuidStone);
-    // add to user 
     DocumentReference userDocumentReference = getUserDocument(user.id);
 
     user.favorites.add(stoneDocumentReference);
@@ -111,6 +98,7 @@ class UserRepository {
     userDocumentReference.updateData(data);
   }
 
+  // method get stream books(user uuid)
   // method add book
   // method delete book(book uuid)
   // method update book(book uuid)
