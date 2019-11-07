@@ -6,7 +6,6 @@ import 'package:edelsten/views/stone/stone.dart';
 import 'package:edelsten/views/in_coming_view.dart';
 import 'package:flutter/material.dart';
 
-
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -18,9 +17,12 @@ class Router {
         return MaterialPageRoute(builder: (_) => LoginView());
       case RoutesNames.stones:
         return MaterialPageRoute(builder: (_) => StonesView());
+      case RoutesNames.favoritesStones:
+        return MaterialPageRoute(builder: (_) => StonesFavoritesView());
       case RoutesNames.stone:
         var stone = settings.arguments as Stone;
-        return MaterialPageRoute(builder: (_) => StoneView(uuidStone: stone.id));
+        return MaterialPageRoute(
+            builder: (_) => StoneView(uuidStone: stone.id));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

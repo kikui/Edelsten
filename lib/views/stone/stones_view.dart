@@ -1,15 +1,15 @@
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/models/user.dart';
 import 'package:edelsten/routes/routes_names.dart';
+import 'package:edelsten/views/base_view.dart';
 import 'package:edelsten/views/parameter_view.dart';
 import 'package:flutter/material.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
-import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/in_coming_view.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
+import 'package:edelsten/views/stone/stone.dart';
 import 'package:provider/provider.dart';
-import '../base_view.dart';
 
 class StonesView extends StatefulWidget {
   StonesView({Key key}) : super(key: key);
@@ -25,7 +25,7 @@ class _StonesViewState extends State<StonesView> {
   static List<Widget> _page = <Widget>[
     StonesListView(),
     InComingView(),
-    InComingView(),
+    StonesFavoritesView(),
     ParameterView(),
   ];
 
