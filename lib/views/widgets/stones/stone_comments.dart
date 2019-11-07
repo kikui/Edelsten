@@ -39,28 +39,52 @@ class CommentsStoneWidget extends StatelessWidget {
                                 color: Theme.of(context).accentColor,
                                 fontSize: 15)),
                         // Text(comments[index]?.user '-' comments[index]?.title, style: TextStyle(color: Theme.of(context).accentColor, fontSize: 18)),
-                        Text('06/11/2019',
-                            style: TextStyle(
-                                color: const Color(0xFF707070),
-                                fontStyle: FontStyle.italic,
-                                fontSize: 11),
-                                textAlign: TextAlign.left,),
+                        Text(
+                          '06/11/2019',
+                          style: TextStyle(
+                              color: const Color(0xFF707070),
+                              fontStyle: FontStyle.italic,
+                              fontSize: 11),
+                          textAlign: TextAlign.left,
+                        ),
 
                         // Text(comments[index]?.date, style: TextStyle(color: const Color(0xFF707070), fontStyle: FontStyle.italic, fontSize: 11)),
                       ],
                     ),
                   ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).accentColor,
-                      shape: BoxShape.circle,
+                  GestureDetector(
+                    onTap: () => {},
+                    onDoubleTap: () => {},
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child:
+                            Text('+100', style: TextStyle(color: Colors.white)),
+                        // child: Text('+'+comments[index]?.like, style: TextStyle(color: Colors.white)),
+                      ),
                     ),
-                    child: Center(
-                      child:
-                          Text('+100', style: TextStyle(color: Colors.white)),
-                      // child: Text('+'+comments[index]?.like, style: TextStyle(color: Colors.white)),
+                  ),
+                  GestureDetector(
+                    onTap: () => {},
+                    onDoubleTap: () => {},
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text('-10',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 10)),
+                        // child: Text('+'+comments[index]?.like, style: TextStyle(color: Colors.white)),
+                      ),
                     ),
                   ),
                 ],
