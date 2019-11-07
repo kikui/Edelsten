@@ -20,6 +20,16 @@ class StoneRepository {
     return stoneList;
   }
 
+  // TODO : method get all favorites stones by user id
+  Future<List<Stone>> getAllFavoritesStones() async {
+    var stoneList = new List<Stone>();  
+    List<DocumentSnapshot> stonesSnapshot = (await dataBase.collection(STONES_STRING).getDocuments()).documents;
+    stonesSnapshot.forEach((e) => {
+      stoneList.add(Stone.fromSnapshot(e))
+    });
+    return stoneList;
+  }
+
   // method get one stone
   Future<Stone> getOneStone(String uuidStone) async {
     CollectionReference collectionStoneReference = dataBase.collection(STONES_STRING);

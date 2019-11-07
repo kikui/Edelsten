@@ -6,6 +6,7 @@ import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/in_coming_view.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
+import 'package:edelsten/views/stone/stone.dart';
 import '../base_view.dart';
 
 class StonesView extends StatefulWidget {
@@ -22,7 +23,7 @@ class _StonesViewState extends State<StonesView> {
   static List<Widget> _page = <Widget>[
     StonesListView(),
     InComingView(),
-    InComingView(),
+    StonesFavoritesView(),
     HomeView(),
   ];
 
