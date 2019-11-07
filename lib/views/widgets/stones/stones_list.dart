@@ -13,6 +13,7 @@ class StonesListViewWidget extends StatelessWidget {
         itemCount: stones?.length,
         itemBuilder: (context, index) => StoneListItem(
               stone: stones[index],
+              displayFavorite: true,
               onTap: () {
                 Navigator.pushNamed(context, RoutesNames.stone,
                     arguments: stones[index]);
