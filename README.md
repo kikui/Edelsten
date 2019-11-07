@@ -4,7 +4,7 @@
 
 ### Descriptif projet
 
-Cette application a pour but de référencer un catalogue de pierre précieuse et semi-précieuse.
+Cette application a pour but de référencer un catalogue de pierres précieuses et semi-précieuses.
 Comme pour wikipédia, la communauté améliore son contenue et sa fiabilité.
 Edelsten sera composée de deux sections :
 
