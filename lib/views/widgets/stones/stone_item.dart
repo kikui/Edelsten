@@ -56,7 +56,7 @@ class StoneListItem extends StatelessWidget {
                     child: Icon(
                       Icons.favorite_border, //favorite
                       color: Colors.white,
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                 ),
