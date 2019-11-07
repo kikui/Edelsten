@@ -3,7 +3,7 @@ import 'package:edelsten/core/viewmodels/parameters_model.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/base_view.dart';
 import 'package:edelsten/views/widgets/common/logo.dart';
-import 'package:edelsten/views/widgets/login_notification.dart';
+import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -42,7 +42,7 @@ class ParameterView extends StatelessWidget {
                             Navigator.pushNamed(context, RoutesNames.home);
                           }
                           else{
-                            NotificationWidget(
+                            getNotificationWidget(
                               title: "Echec de la deconnection!",
                               isSucced: false,
                               message: "Veuillez réessayer plus tard!" ,

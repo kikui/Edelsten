@@ -16,7 +16,10 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color color = Colors.red[200];
-    if (isSucced) color = Colors.green[300];
+    if (isSucced) 
+    { 
+      color = Colors.green[300];
+    } 
 
     return Flushbar(
       title: title,
@@ -26,4 +29,20 @@ class NotificationWidget extends StatelessWidget {
       duration: Duration(seconds: 4),
     )..show(context);
   }
+}
+
+Widget getNotificationWidget({message, isSucced, title, context}){
+  Color color = Colors.red[200];
+    if (isSucced) 
+    { 
+      color = Colors.green[300];
+    } 
+
+    return Flushbar(
+      title: title,
+      message: message,
+      flushbarPosition: FlushbarPosition.TOP,
+      backgroundColor: color,
+      duration: Duration(seconds: 4),
+    )..show(context);
 }
