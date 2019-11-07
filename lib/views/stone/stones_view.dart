@@ -1,3 +1,5 @@
+import 'package:edelsten/core/models/stone.dart';
+import 'package:edelsten/routes/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
@@ -107,3 +109,12 @@ class StonesListView extends StatelessWidget {
     );
   }
 }
+
+Widget stonesListView(List<Stone> stones) => ListView.builder(
+    itemCount: stones?.length,
+    itemBuilder: (context, index) => StoneListItem(
+          stone: stones[index],
+          onTap: ()  {
+            Navigator.pushNamed(context, RoutesNames.stone, arguments: stones[index]);
+          },
+        ));
