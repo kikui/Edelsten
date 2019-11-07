@@ -40,6 +40,14 @@ class StonesModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
+  // TODO
+  Future getFavoritesStones() async {
+    setState(ViewState.Busy);
+    stones = await _stoneRepo.getAllFavoritesStones();
+    filteredStones = stones;
+    setState(ViewState.Idle);
+  }
+
   List<Stone> stoneToShow(){
     if (searchText.isNotEmpty){
       var tempList = List<Stone>();

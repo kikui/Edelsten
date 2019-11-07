@@ -5,5 +5,6 @@ class RoutesNames {
   static const String stones = '/stones';
   static const String stone = '/stone';
   static const String inComing = '/in-coming';
+  static const String favoritesStones = '/favorites-stones';
 
 }
