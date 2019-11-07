@@ -1,3 +1,4 @@
+import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/viewmodels/parameters_model.dart';
@@ -9,10 +10,11 @@ import 'core/viewmodels/viewmodel.dart';
 
 GetIt locator = GetIt.instance;
 void setupLocator() {
-  locator.registerFactory(() => LoginModel());
   locator.registerLazySingleton(() => UserRepository());
   locator.registerLazySingleton(() => StoneRepository());
   locator.registerLazySingleton(() => AuthenticationService());
+  locator.registerLazySingleton(() => CommentRepository());
+  locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => StonesModel());
   locator.registerFactory(() => StoneModel());
   locator.registerFactory(() => ParametersModel());
