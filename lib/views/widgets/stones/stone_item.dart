@@ -51,9 +51,12 @@ class StoneListItem extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.white,                    
+                  child: GestureDetector(
+                    onTap: () => {},
+                    child: Icon(
+                      Icons.favorite_border, //favorite
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
