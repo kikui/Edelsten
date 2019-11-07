@@ -6,13 +6,12 @@ class Comment {
   String stoneId;
   String user;
   String body;
-  String date;
+  Timestamp date;
   int like;
   int dislike;
   bool request;
 
-  Comment(String title, String stoneId, String user, String body) {
-    DateTime dateTime = new DateTime.now();
+  Comment(String title, String stoneId, String user, String body, Timestamp date) {
     this.title = title;
     this.id = id;
     this.stoneId = stoneId;
@@ -21,8 +20,7 @@ class Comment {
     this.like = 0;
     this.dislike = 0;
     this.request = false;
-    this.date = dateTime.day.toString() + '/' + dateTime.month.toString() + '/' + 
-      dateTime.year.toString() + ' à ' + dateTime.hour.toString() + ':' + dateTime.second.toString();
+    this.date = date;
   }
 
   Comment.fromSnapshot(DocumentSnapshot snapshot) {
