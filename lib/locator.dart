@@ -1,3 +1,4 @@
+import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
@@ -12,6 +13,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => StoneRepository());
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => UserRepository());
+  locator.registerLazySingleton(() => CommentRepository());
   locator.registerFactory(() => StonesModel());
   locator.registerFactory(() => StoneModel());
 }
