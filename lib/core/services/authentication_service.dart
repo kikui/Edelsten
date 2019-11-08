@@ -8,32 +8,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthenticationService  {
   
   StreamController<User> userController = StreamController<User>();
-  StreamSubscription<User> userStreamSubscription;
+  Stream<User> userStream;
   UserRepository _userRepository = locator<UserRepository>();
 
   Future<bool> login(String identifier, String password) async {
     
     FirebaseUser firebaseUser;
     firebaseUser = await _userRepository.loginUser(email: identifier, password: password);
-    var hasUser;
+    User user;
+    var hasUser = false;
     
     if (firebaseUser != null){
-      userStreamSubscription = _userRepository.getUserData(firebaseUser.uid).listen((User user) {
-        hasUser = user != null;
-        if (hasUser) {
-          userController.add(user);
-        } else {
-          _userRepository.loginOut();
-        }
+      userStream = _userRepository.getUserDataStream(firebaseUser.uid);
+      userStream.listen((User userFromStream) {
+        userController.add(user);
       });
+
+      user = await _userRepository.getUserData(firebaseUser.uid);
+      hasUser = user != null;
+      if (hasUser) {
+        userController.add(user);
+        return hasUser;
+      } else {
+        logout(); 
+        return hasUser;
+      }
     }
-    return hasUser;
   }
 
   Future<bool> logout() async{
     try{
       await _userRepository.loginOut();
-      userController.add(null);
+      userStream = null;
       return true;
     }
     catch(e){
@@ -51,8 +57,12 @@ class AuthenticationService  {
     }
     var hasUser = userData != null;
     if (hasUser) {
-      userController.add(userData);
+      // userController.add(userData);
     }
     return hasUser;
+  }
+
+  void dispose() {
+    userController.close();
   }
 }

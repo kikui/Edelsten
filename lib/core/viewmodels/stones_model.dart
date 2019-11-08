@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
@@ -35,14 +38,6 @@ class StonesModel extends BaseModel {
   Future getstones() async {
     setState(ViewState.Busy);
     stones = await _stoneRepo.getAllStones();
-    filteredStones = stones;
-    setState(ViewState.Idle);
-  }
-
-  // TODO
-  Future getFavoritesStones() async {
-    setState(ViewState.Busy);
-    stones = await _stoneRepo.getAllFavoritesStones();
     filteredStones = stones;
     setState(ViewState.Idle);
   }

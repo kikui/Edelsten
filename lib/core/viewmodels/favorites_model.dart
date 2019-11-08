@@ -1,6 +1,10 @@
-import 'package:edelsten/core/services/authentication_service.dart';
+import 'dart:async';
+
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
+import 'package:edelsten/core/services/authentication_service.dart';
+import 'package:edelsten/core/models/stone.dart';
+import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/locator.dart';
 import 'package:flutter/material.dart';
@@ -11,18 +15,40 @@ import '../view_state.dart';
 class FavoritesModel extends BaseModel {
   UserRepository _userRepo = locator<UserRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
+  StreamSubscription<User> userStreamSubscription;
   User user;
-  List<Stone> favorites;
 
-  FavoritesModel(){
-    _auth.userController.stream.listen((User userGet) {
-      user = userGet;
+  StoneRepository _stoneRepo = locator<StoneRepository>();
+  List<Stone> stones;
+  TextEditingController filter = TextEditingController(); 
+  Icon searchIcon = Icon(Icons.search);
+  Widget searchBar = Text("chercher une pierre");
+  String searchText = "";
+  List<Stone> filteredStones;
+  
+  StonesModel(){
+    // userStreamSubscription = _auth.userController.stream.listen((User userFrom) {
+    //   user = userFrom;
+    // });
+    filter.addListener((){
+      if(filter.text.isEmpty){
+        setStateWithFunction((){
+          searchText = "";
+          filteredStones = stones;
+        });
+      }
+      else{
+        setStateWithFunction((){
+          searchText = filter.text;
+        });
+      }
     });
   }
 
   Future getFavoritesStones() async {
     setState(ViewState.Busy);
-    favorites = await _userRepo.getUserFavorites(user.favorites);
+    stones = await _userRepo.getUserFavorites(user.favorites);
+    filteredStones = stones;
     setState(ViewState.Idle);
   }
 
@@ -36,5 +62,24 @@ class FavoritesModel extends BaseModel {
       filteredStones = tempList;
     }
     return filteredStones;
+  }
+
+  void searchIconPressed(){
+    setState(ViewState.Busy);
+    if (searchIcon.icon == Icons.search){
+      searchIcon = Icon(Icons.close);
+      searchBar = TextField(
+        controller: filter,
+        decoration: new InputDecoration(
+          hintText: 'Nom de la pierre...'
+        )
+      );
+    }
+    else {
+      searchIcon = Icon(Icons.search);
+      searchBar = Text("Rechercher une pierre");
+      filter.clear();
+    }
+    setState(ViewState.Idle);
   }
 }

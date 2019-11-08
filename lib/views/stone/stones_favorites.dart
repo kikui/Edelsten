@@ -7,7 +7,7 @@ import 'package:edelsten/core/view_state.dart';
 class StonesFavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView<StonesModel>(
+    return BaseView<FavoritesModel>(
       onModelReady: (model) async {
         await model.getFavoritesStones();
       },
