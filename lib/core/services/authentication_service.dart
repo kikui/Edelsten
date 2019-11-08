@@ -10,18 +10,19 @@ class AuthenticationService  {
   StreamController<User> userController = StreamController<User>();
   Stream<User> userStream;
   UserRepository _userRepository = locator<UserRepository>();
+  User user;
 
   Future<bool> login(String identifier, String password) async {
     
     FirebaseUser firebaseUser;
     firebaseUser = await _userRepository.loginUser(email: identifier, password: password);
-    User user;
     var hasUser = false;
     
     if (firebaseUser != null){
       userStream = _userRepository.getUserDataStream(firebaseUser.uid);
       userStream.listen((User userFromStream) {
-        userController.add(user);
+        user = userFromStream;
+        userController.add(userFromStream);
       });
 
       user = await _userRepository.getUserData(firebaseUser.uid);
@@ -40,6 +41,8 @@ class AuthenticationService  {
     try{
       await _userRepository.loginOut();
       userStream = null;
+      userController.add(null);
+      user = null;
       return true;
     }
     catch(e){

@@ -57,7 +57,7 @@ class UserRepository {
     });
   }
 
-    Future<User> getUserData(String uuidUser) async {  
+  Future<User> getUserData(String uuidUser) async {  
     DocumentReference userDocumentReference = _getUserDocument(uuidUser);
     DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
     if (userDocumentSnapshot.data == null){
