@@ -15,15 +15,15 @@ class CommentModel extends BaseModel {
   StreamSubscription<List<Comment>> streamSubscriptionComments;
   StreamSubscription<User> streamSubscriptionUser;
 
-  void initCommentModel(String uuidStone) {
-    setState(ViewState.Busy);
+  void getComments(String uuidStone) {
     streamSubscriptionComments = _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
+      setState(ViewState.Busy);
       listComment = listStream;
+      setState(ViewState.Idle);
     });
-    streamSubscriptionUser = _auth.userController.stream.listen((User userFromStream) {
-        user = userFromStream;
-      });
-    setState(ViewState.Idle);
+    // streamSubscriptionUser = _auth.userController.stream.listen((User userFromStream) {
+    //     user = userFromStream;
+    //   });
   }
 
   // method create comment
