@@ -35,7 +35,7 @@ class ParameterView extends StatelessWidget {
                       :  
                       ButtonWidget(
                         color: const Color(0xFF071938),
-                        text: 'Deconexion',
+                        text: 'Deconnexion',
                         function: () async {
                           var isDeconnected = await model.logout();
                           if (isDeconnected){

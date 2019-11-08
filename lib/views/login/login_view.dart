@@ -63,6 +63,9 @@ class LoginView extends StatelessWidget {
                                                   title: 'Connexion échouée',
                                                   context: context);
                                               }
+                                              else{
+                                                Navigator.pushNamed(context, RoutesNames.stones);
+                                              }
                                             },
                                             color: const Color(0xFF071938),
                                             textColor: Colors.white,
