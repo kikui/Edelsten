@@ -16,7 +16,6 @@ class StonesModel extends BaseModel {
   String searchText = "";
   List<Stone> filteredStones;
   
-
   StonesModel(){
     filter.addListener((){
       if(filter.text.isEmpty){
