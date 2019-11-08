@@ -4,3 +4,4 @@ export 'stone_pictures.dart';
 export 'stone_item.dart';
 export 'stones_list.dart';
 export 'stone_comments.dart';
+export 'stones_grid.dart';

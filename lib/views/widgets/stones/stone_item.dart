@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class StoneListItem extends StatelessWidget {
   final Stone stone;
+  final bool displayFavorite;
   final Function onTap;
 
-  StoneListItem({this.stone, this.onTap});
+  StoneListItem({this.stone, this.displayFavorite, this.onTap});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,6 +50,17 @@ class StoneListItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                displayFavorite ? Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    onTap: () => {},
+                    child: Icon(
+                      Icons.favorite_border, //favorite
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ) : Text(''),
               ],
             ),
           )),
