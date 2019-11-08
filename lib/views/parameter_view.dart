@@ -35,7 +35,7 @@ class ParameterView extends StatelessWidget {
                       :  
                       ButtonWidget(
                         color: const Color(0xFF071938),
-                        text: 'Deconnexion',
+                        text: 'Déconnexion',
                         function: () async {
                           var isDeconnected = await model.logout();
                           if (isDeconnected){
@@ -50,6 +50,18 @@ class ParameterView extends StatelessWidget {
                             );
                           }
                         }),
+                        Container(
+                                    child: InkWell(
+                                      child: Text(
+                                        "V0.1.0-beta",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: const Color(0xFFABAFB2),
+                                        ),
+                                      ),
+                                      onTap: () {},
+                                    ),
+                                  ),
                   ],
                 ),
               ),
