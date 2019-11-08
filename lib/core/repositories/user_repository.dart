@@ -51,10 +51,20 @@ class UserRepository {
     await documentUser.collection('books').add(dataBook);
   }
 
-  Stream<User> getUserData(String uuidUser) {  
+  Stream<User> getUserDataStream(String uuidUser) {  
     return _getUserDocument(uuidUser).snapshots().map<User>((DocumentSnapshot snapshot) {
       return User.fromSnapshot(snapshot);
     });
+  }
+
+  Future<User> getUserData(String uuidUser) async {  
+    DocumentReference userDocumentReference = _getUserDocument(uuidUser);
+    DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
+    if (userDocumentSnapshot.data == null){
+      return null;
+    }
+    User userData = User.fromSnapshot(userDocumentSnapshot);
+    return userData;
   }
 
   // method get user favorites(user uuid)
