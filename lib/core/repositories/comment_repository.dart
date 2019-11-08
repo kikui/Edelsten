@@ -42,20 +42,9 @@ class CommentRepository {
     await dataBase.collection('comments').document(comment.id).setData(transformCommentToMap(comment));
   }
 
-  // updateLike(Comment comment, intvalue) // value = 0 || 1 => 1 add like / 0 remove like
-  void updateLike(Comment comment, int value) async {
-    if(value >= -1 && value <= 1){
-      comment.like += value;
-      await dataBase.collection('comments').document(comment.id).setData(transformCommentToMap(comment));
-    }
-  }
-
-  // updateDislike(Comment comment, int value)
-  void updateDislike(Comment comment, int value) async {
-    if(value >= -1 && value <= 1){
-      comment.dislike += value;
-      await dataBase.collection('comments').document(comment.id).setData(transformCommentToMap(comment));
-    }
+  // updateComment(Comment comment)
+  void updateComment(Comment comment) async {
+    await dataBase.collection('comments').document(comment.id).setData(transformCommentToMap(comment));
   }
 
   Map<String, dynamic> transformCommentToMap(Comment comment) {

@@ -22,7 +22,7 @@ class _StoneViewState extends State<StoneView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -66,10 +66,13 @@ class _StoneViewState extends State<StoneView>
                       TabBar(
                         unselectedLabelColor: Colors.white,
                         labelColor: Theme.of(context).accentColor,
+                        labelStyle: TextStyle(fontSize: 12),
+                        isScrollable: true,
                         tabs: [
                           Tab(text: 'Résumé'),
                           Tab(text: 'Histoires'),
                           Tab(text: 'Photos'),
+                          Tab(text: 'Commentaires'),
                         ],
                         controller: _tabController,
                         indicatorColor: Theme.of(context).accentColor,
@@ -81,7 +84,8 @@ class _StoneViewState extends State<StoneView>
                             OverviewStoneWidget(stone: model.stone),
                             HistoriesStoneWidget(
                                 histories: model.stone.histories),
-                            PicturesStoneWidget(pictures: model.stone.pictures)
+                            PicturesStoneWidget(pictures: model.stone.pictures),
+                            CommentsStoneWidget(stoneId: model.stone.id),
                           ],
                         ),
                       ),

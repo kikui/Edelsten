@@ -7,20 +7,20 @@ class Comment {
   String user;
   String body;
   Timestamp date;
-  int like;
-  int dislike;
+  List<dynamic> like;
+  List<dynamic> dislike;
   bool request;
 
-  Comment(String title, String stoneId, String user, String body, Timestamp date) {
+  Comment(String title, String stoneId, String user, String body) {
     this.title = title;
     this.id = id;
     this.stoneId = stoneId;
     this.user = user;
     this.body = body;
-    this.like = 0;
-    this.dislike = 0;
+    this.like = new List();
+    this.dislike = new List();
     this.request = false;
-    this.date = date;
+    this.date = Timestamp.now();
   }
 
   Comment.fromSnapshot(DocumentSnapshot snapshot) {
@@ -31,8 +31,8 @@ class Comment {
     body = snapshot['body'];
     date = snapshot['date'];
     request = snapshot['request'];
-    like = snapshot['like'];
-    dislike = snapshot['dislike'];
+    like = new List<dynamic>.from(snapshot['like']);
+    dislike = new List<dynamic>.from(snapshot['dislike']);
   }
 
   @override
