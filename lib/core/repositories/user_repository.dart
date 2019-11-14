@@ -74,12 +74,12 @@ class UserRepository {
     DocumentSnapshot stoneSnapshot;
     Stone stone;
 
-    listReference.forEach((e) async => {
-      stoneReference = e,
-      stoneSnapshot = await stoneReference.get(),
-      stone = Stone.fromSnapshot(stoneSnapshot),
-      listFavorites.add(stone)
-    });
+    for(int i=0; i<listReference.length; i++){
+      stoneReference = listReference[i];
+      stoneSnapshot = await stoneReference.get();
+      stone = Stone.fromSnapshot(stoneSnapshot);
+      listFavorites.add(stone);
+    }
 
     return listFavorites;
   }

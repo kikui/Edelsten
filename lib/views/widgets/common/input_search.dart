@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:edelsten/core/viewmodels/viewmodel.dart';
 
 class SearchWidget extends StatelessWidget {
-  final StonesModel model;
+  final dynamic model; //StonesModel or FavoritesModel
 
   SearchWidget({@required this.model});
 

@@ -1,4 +1,3 @@
-import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/base_model.dart';

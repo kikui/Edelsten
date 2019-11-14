@@ -4,7 +4,6 @@ import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/models/stone.dart';
-import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/locator.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +14,7 @@ import '../view_state.dart';
 class FavoritesModel extends BaseModel {
   UserRepository _userRepo = locator<UserRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
-  StreamSubscription<User> userStreamSubscription;
-  User user;
 
-  StoneRepository _stoneRepo = locator<StoneRepository>();
   List<Stone> stones;
   TextEditingController filter = TextEditingController(); 
   Icon searchIcon = Icon(Icons.search);
@@ -26,10 +22,7 @@ class FavoritesModel extends BaseModel {
   String searchText = "";
   List<Stone> filteredStones;
   
-  StonesModel(){
-    // userStreamSubscription = _auth.userController.stream.listen((User userFrom) {
-    //   user = userFrom;
-    // });
+  FavoritesModel(){
     filter.addListener((){
       if(filter.text.isEmpty){
         setStateWithFunction((){
@@ -45,9 +38,9 @@ class FavoritesModel extends BaseModel {
     });
   }
 
-  Future getFavoritesStones() async {
+  void getFavoritesStones() async {
     setState(ViewState.Busy);
-    stones = await _userRepo.getUserFavorites(user.favorites);
+    stones = await _userRepo.getUserFavorites(_auth.user.favorites);
     filteredStones = stones;
     setState(ViewState.Idle);
   }

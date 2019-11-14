@@ -13,9 +13,6 @@ import 'package:flutter/widgets.dart';
 import '../view_state.dart';
 
 class StonesModel extends BaseModel {
-  UserRepository _userRepo = locator<UserRepository>();
-  AuthenticationService _auth = locator<AuthenticationService>();
-
   StoneRepository _stoneRepo = locator<StoneRepository>();
   List<Stone> stones;
   TextEditingController filter = TextEditingController(); 
@@ -44,13 +41,6 @@ class StonesModel extends BaseModel {
     setState(ViewState.Busy);
     stones = await _stoneRepo.getAllStones();
     filteredStones = stones;
-    setState(ViewState.Idle);
-  }
-
-  Future getFavoritesStones() async {
-    setState(ViewState.Busy);
-    stones = await _userRepo.getUserFavorites(_auth.user.favorites);
-    //filteredStones = stones;
     setState(ViewState.Idle);
   }
 

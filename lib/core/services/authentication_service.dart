@@ -4,10 +4,11 @@ import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AuthenticationService  {
   
-  StreamController<User> userController = StreamController<User>();
+  StreamController<User> userController = BehaviorSubject();
   Stream<User> userStream;
   UserRepository _userRepository = locator<UserRepository>();
   User user;
@@ -35,6 +36,7 @@ class AuthenticationService  {
         return hasUser;
       }
     }
+    return hasUser;
   }
 
   Future<bool> logout() async{
@@ -65,6 +67,7 @@ class AuthenticationService  {
     return hasUser;
   }
 
+  @override
   void dispose() {
     userController.close();
   }
