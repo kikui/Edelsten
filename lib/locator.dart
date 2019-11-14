@@ -15,6 +15,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => StoneRepository());
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => CommentRepository());
+  locator.registerFactory(() => FavoritesModel());
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => RegisterModel());
   locator.registerFactory(() => StonesModel());

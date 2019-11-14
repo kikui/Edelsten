@@ -4,27 +4,37 @@ import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rxdart/rxdart.dart';
 
 class AuthenticationService  {
   
-  StreamController<User> userController = StreamController<User>();
+  StreamController<User> userController = BehaviorSubject();
+  Stream<User> userStream;
   UserRepository _userRepository = locator<UserRepository>();
+  User user;
 
   Future<bool> login(String identifier, String password) async {
     
     FirebaseUser firebaseUser;
     firebaseUser = await _userRepository.loginUser(email: identifier, password: password);
-    User userData;
+    var hasUser = false;
     
     if (firebaseUser != null){
-      userData = await _userRepository.getUserData(firebaseUser.uid);
-    }
-    var hasUser = userData != null;
-    if (hasUser) {
-      userController.add(userData);
-    }
-    else{
-      _userRepository.loginOut();
+      userStream = _userRepository.getUserDataStream(firebaseUser.uid);
+      userStream.listen((User userFromStream) {
+        user = userFromStream;
+        userController.add(userFromStream);
+      });
+
+      user = await _userRepository.getUserData(firebaseUser.uid);
+      hasUser = user != null;
+      if (hasUser) {
+        userController.add(user);
+        return hasUser;
+      } else {
+        logout(); 
+        return hasUser;
+      }
     }
     return hasUser;
   }
@@ -32,7 +42,9 @@ class AuthenticationService  {
   Future<bool> logout() async{
     try{
       await _userRepository.loginOut();
+      userStream = null;
       userController.add(null);
+      user = null;
       return true;
     }
     catch(e){
@@ -46,12 +58,17 @@ class AuthenticationService  {
     User userData = new User(firebaseUser.uid, pseudo, false);
     
     if (firebaseUser != null){
-     _userRepository.createUserData(userData);
+      _userRepository.createUserData(userData);
     }
     var hasUser = userData != null;
     if (hasUser) {
-      userController.add(userData);
+      // userController.add(userData);
     }
     return hasUser;
+  }
+
+  @override
+  void dispose() {
+    userController.close();
   }
 }
