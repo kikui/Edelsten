@@ -45,7 +45,7 @@ class _HomeViewState extends State<HomeView> {
                       function: () {
                         Navigator.pushNamed(
                           context,
-                          RoutesNames.inComing,
+                          RoutesNames.register,
                         );
                       }),
                   Container(
