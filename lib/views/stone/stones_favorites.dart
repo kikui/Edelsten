@@ -35,15 +35,8 @@ class StonesFavoritesView extends StatelessWidget {
                       ),
                     )
                   : Expanded(
-                      child: Wrap(spacing: 0, runSpacing: 0, children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                          itemCount: model.stoneToShow()?.length,
-                          itemBuilder: (context, index) =>
-                              ConstrainedBox(
-                                constraints: BoxConstraints(maxWidth: 100),
-                                child :StoneListItem(stone: model.stoneToShow()[index])),)
-                    ]))
+                      child: StonesGridViewWidget(stones: model.stoneToShow()), 
+                  )                     
             ]),
           ),
         ],

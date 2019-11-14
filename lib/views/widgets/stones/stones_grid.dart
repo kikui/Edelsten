@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
 
-class StonesListViewWidget extends StatelessWidget {
-  const StonesListViewWidget({@required this.stones});
+class StonesGridViewWidget extends StatelessWidget {
+  const StonesGridViewWidget({@required this.stones});
 
   final List stones;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return GridView.builder(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: stones?.length,
         itemBuilder: (context, index) => StoneListItem(
               stone: stones[index],
-              displayFavorite: true,
+              displayFavorite: false,
               onTap: () {
                 Navigator.pushNamed(context, RoutesNames.stone,
                     arguments: stones[index]);

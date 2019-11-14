@@ -4,6 +4,7 @@ import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/login/login.dart';
 import 'package:edelsten/views/stone/stone.dart';
 import 'package:edelsten/views/in_coming_view.dart';
+import 'package:edelsten/views/register/register.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -15,6 +16,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => HomeView());
       case RoutesNames.login:
         return MaterialPageRoute(builder: (_) => LoginView());
+      case RoutesNames.register:
+        return MaterialPageRoute(builder: (_) => RegisterView());
       case RoutesNames.stones:
         return MaterialPageRoute(builder: (_) => StonesView());
       case RoutesNames.favoritesStones:
