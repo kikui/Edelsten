@@ -1,3 +1,4 @@
+import 'package:edelsten/views/comment/add_comment.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stone_model.dart';
@@ -39,7 +40,8 @@ class _StoneViewState extends State<StoneView>
              Center(
                child: CircularProgressIndicator(),
              ))
-            : SlidingUpPanel(
+            : Stack( children: <Widget>[
+              SlidingUpPanel(
                 backdropEnabled: true,
                 maxHeight: size.height - (size.height / 4),
                 minHeight: size.height / 2,
@@ -178,9 +180,20 @@ class _StoneViewState extends State<StoneView>
                         ),
                       ],
                     ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: new AddCommentButton(),
+                    )
                   ],
                 ),
               ),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: AddCommentButton(),
+              )
+            ]
+            ),
       ),
     );
   }
