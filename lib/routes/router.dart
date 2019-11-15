@@ -1,6 +1,6 @@
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/routes/routes_names.dart';
-import 'package:edelsten/views/comment/add_comment_view.dart';
+import 'package:edelsten/views/comment/comment_view.dart';
 import 'package:edelsten/views/home/home.dart';
 import 'package:edelsten/views/login/login.dart';
 import 'package:edelsten/views/stone/stone.dart';
@@ -21,8 +21,9 @@ class Router {
         return MaterialPageRoute(builder: (_) => RegisterView());
       case RoutesNames.stones:
         return MaterialPageRoute(builder: (_) => StonesView());
-      case RoutesNames.comment:
-        return MaterialPageRoute(builder: (_) => AddCommentView());
+      case RoutesNames.comments:
+        var stone = settings.arguments as Stone;
+        return MaterialPageRoute(builder: (_) => CommentsView(stoneId: stone.id));
       case RoutesNames.favoritesStones:
         return MaterialPageRoute(builder: (_) => StonesFavoritesView());
       case RoutesNames.stone:

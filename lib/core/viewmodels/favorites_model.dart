@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';

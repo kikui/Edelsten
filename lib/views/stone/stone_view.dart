@@ -1,4 +1,4 @@
-import 'package:edelsten/views/comment/add_comment.dart';
+import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/stone_model.dart';
@@ -23,7 +23,7 @@ class _StoneViewState extends State<StoneView>
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -37,14 +37,14 @@ class _StoneViewState extends State<StoneView>
       builder: (context, model, child) => Scaffold(
         body: model.state == ViewState.Busy
             ? Container(child:
-             Center(
-               child: CircularProgressIndicator(),
-             ))
+            Center(
+              child: CircularProgressIndicator(),
+            ))
             : Stack( children: <Widget>[
               SlidingUpPanel(
                 backdropEnabled: true,
                 maxHeight: size.height - (size.height / 4),
-                minHeight: size.height / 2,
+                minHeight: size.height / 1.7,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -68,13 +68,12 @@ class _StoneViewState extends State<StoneView>
                       TabBar(
                         unselectedLabelColor: Colors.white,
                         labelColor: Theme.of(context).accentColor,
-                        labelStyle: TextStyle(fontSize: 12),
+                        labelStyle: TextStyle(fontSize: 18),
                         isScrollable: true,
                         tabs: [
                           Tab(text: 'Résumé'),
                           Tab(text: 'Histoires'),
                           Tab(text: 'Photos'),
-                          Tab(text: 'Commentaires'),
                         ],
                         controller: _tabController,
                         indicatorColor: Theme.of(context).accentColor,
@@ -87,7 +86,6 @@ class _StoneViewState extends State<StoneView>
                             HistoriesStoneWidget(
                                 histories: model.stone.histories),
                             PicturesStoneWidget(pictures: model.stone.pictures),
-                            CommentsStoneWidget(stoneId: model.stone.id),
                           ],
                         ),
                       ),
@@ -150,7 +148,7 @@ class _StoneViewState extends State<StoneView>
                           ],
                         ),
                         SizedBox(
-                          height: 80,
+                          height: 30,
                         ),
                         Container(
                           alignment: Alignment.center,
@@ -179,10 +177,6 @@ class _StoneViewState extends State<StoneView>
                           ),
                         ),
                       ],
-                    ),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: new AddCommentButton(),
                     )
                   ],
                 ),
@@ -190,7 +184,7 @@ class _StoneViewState extends State<StoneView>
               Positioned(
                 bottom: 20,
                 right: 20,
-                child: AddCommentButton(),
+                child: FloatButton(route: RoutesNames.comments, icon: Icons.chat, color: Colors.grey, argument: model.stone,),
               )
             ]
             ),

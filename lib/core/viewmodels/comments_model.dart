@@ -27,14 +27,14 @@ class CommentModel extends BaseModel {
   }
 
   // method create comment
-  void createComment(String stoneId, String title, String body) async {
+  void createComment(String stoneId, String title, String body) {
     setState(ViewState.Busy);
     Comment comment = new Comment(title, stoneId, user.pseudo, body);
-    await _commentRepo.addComment(comment);
+    _commentRepo.addComment(comment);
   }
 
   // method updateLike
-  void updateLike(Comment comment) async {
+  void updateLike(Comment comment) {
     var checkAddLike = true;
     listComment.forEach((e) => {
       e.like.forEach((f) => {
@@ -47,11 +47,11 @@ class CommentModel extends BaseModel {
     if(checkAddLike == true) {
       comment.like.add(user.pseudo);
     }
-    await _commentRepo.updateComment(comment);
+    _commentRepo.updateComment(comment);
   }
 
   // method updateDislike
-    void updateDislike(Comment comment) async {
+    void updateDislike(Comment comment) {
     var checkAddDislike = true;
     listComment.forEach((e) => {
       e.dislike.forEach((f) => {
@@ -64,6 +64,6 @@ class CommentModel extends BaseModel {
     if(checkAddDislike == true) {
       comment.dislike.add(user.pseudo);
     }
-    await _commentRepo.updateComment(comment);
+    _commentRepo.updateComment(comment);
   }
 }
