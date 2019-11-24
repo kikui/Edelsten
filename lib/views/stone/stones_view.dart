@@ -101,7 +101,7 @@ class StonesListView extends StatelessWidget {
                       )
                     : Expanded(
                         child:
-                            StonesListViewWidget(stones: model.stoneToShow()),
+                            StonesListViewWidget(stones: model.stoneToShow(), model: model),
                       )
               ],
             ),

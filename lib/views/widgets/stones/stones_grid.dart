@@ -15,7 +15,6 @@ class StonesGridViewWidget extends StatelessWidget {
         itemCount: stones?.length,
         itemBuilder: (context, index) => StoneListItem(
               stone: stones[index],
-              displayFavorite: false,
               onTap: () {
                 Navigator.pushNamed(context, RoutesNames.stone,
                     arguments: stones[index]);
