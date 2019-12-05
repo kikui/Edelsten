@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:edelsten/core/helper/commonHelper.dart';
+import 'package:edelsten/core/helper/favoryHelper.dart';
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
-import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/viewmodels/viewmodel.dart';
 import 'package:edelsten/locator.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,10 @@ import '../view_state.dart';
 
 class StonesModel extends BaseModel {
   StoneRepository _stoneRepo = locator<StoneRepository>();
-  AuthenticationService _auth = locator<AuthenticationService>();
-  CommonHelper _commonHelper = new CommonHelper();
+  FavoryHelper _favoryHelper = FavoryHelper();
 
-  List<bool> _stateFavory = new List();
-  List<bool> get stateFavory => _stateFavory;
+  Map<String, bool> _stateFavory = new Map();
+  Map<String, bool> get stateFavory => _stateFavory;
 
   List<Stone> stones;
   TextEditingController filter = TextEditingController(); 
@@ -27,15 +25,15 @@ class StonesModel extends BaseModel {
   List<Stone> filteredStones; 
 
   void setStateFavory() {
+    _stateFavory.clear();
     stones.forEach((e) => {
-      _commonHelper.stringToInt(e.id),
-      //_stateFavory[int.parse(e.id)] = isFavory(e.id)
+      _stateFavory[e.id] = _favoryHelper.isFavory(e.id)
     });
     notifyListeners();
   }
 
   void updateStateFavory(String uuidStone) {
-    _stateFavory[int.parse(uuidStone)] = !_stateFavory[int.parse(uuidStone)];
+    _stateFavory[uuidStone] = !_stateFavory[uuidStone];
     notifyListeners();
   }
   
@@ -94,25 +92,8 @@ class StonesModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  bool isFavory(String uuidStone) {
-    if(_auth.user != null){
-      List<dynamic> listDocumentReferenceFavory = _auth.user.favorites;
-      for (var i = 0; i < listDocumentReferenceFavory.length; i++) {
-        String uuidFavory = listDocumentReferenceFavory[i].documentID;
-        if(uuidStone == uuidFavory) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   void updateFavory(String uuidStone) async {
-    if(_stateFavory[int.parse(uuidStone)]) {
-      //await _userRepo.deleteFavory(_auth.user, stone.id);
-    } else {
-      //await _userRepo.addFavory(_auth.user, stone.id);
-    }
+    _favoryHelper.updateFavory(uuidStone, _stateFavory[uuidStone]);
     updateStateFavory(uuidStone);
   }
 }

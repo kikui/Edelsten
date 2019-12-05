@@ -66,9 +66,4 @@ class AuthenticationService  {
     }
     return hasUser;
   }
-
-  @override
-  void dispose() {
-    userController.close();
-  }
 }

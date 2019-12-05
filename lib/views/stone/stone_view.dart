@@ -36,158 +36,172 @@ class _StoneViewState extends State<StoneView>
       },
       builder: (context, model, child) => Scaffold(
         body: model.state == ViewState.Busy
-            ? Container(child:
-            Center(
-              child: CircularProgressIndicator(),
-            ))
-            : Stack( children: <Widget>[
-              SlidingUpPanel(
-                backdropEnabled: true,
-                maxHeight: size.height - (size.height / 4),
-                minHeight: size.height / 1.7,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                panel: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30),
-                    ),
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          const Color(0xFF080b12),
-                          const Color(0xFF445269)
-                        ]),
+            ? Container(
+                child: Center(
+                child: CircularProgressIndicator(),
+              ))
+            : Stack(children: <Widget>[
+                SlidingUpPanel(
+                  backdropEnabled: true,
+                  maxHeight: size.height - (size.height / 4),
+                  minHeight: size.height / 1.7,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      TabBar(
-                        unselectedLabelColor: Colors.white,
-                        labelColor: Theme.of(context).accentColor,
-                        labelStyle: TextStyle(fontSize: 18),
-                        isScrollable: true,
-                        tabs: [
-                          Tab(text: 'Résumé'),
-                          Tab(text: 'Histoires'),
-                          Tab(text: 'Photos'),
-                        ],
-                        controller: _tabController,
-                        indicatorColor: Theme.of(context).accentColor,
+                  panel: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30),
                       ),
-                      Expanded(
-                        child: TabBarView(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0xFF080b12),
+                            const Color(0xFF445269)
+                          ]),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        TabBar(
+                          unselectedLabelColor: Colors.white,
+                          labelColor: Theme.of(context).accentColor,
+                          labelStyle: TextStyle(fontSize: 18),
+                          isScrollable: true,
+                          tabs: [
+                            Tab(text: 'Résumé'),
+                            Tab(text: 'Histoires'),
+                            Tab(text: 'Photos'),
+                          ],
                           controller: _tabController,
-                          children: <Widget>[
-                            OverviewStoneWidget(stone: model.stone),
-                            HistoriesStoneWidget(
-                                histories: model.stone.histories),
-                            PicturesStoneWidget(pictures: model.stone.pictures),
-                          ],
+                          indicatorColor: Theme.of(context).accentColor,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                body: Stack(
-                  children: <Widget>[
-                    Opacity(
-                      opacity: 1,
-                      child: new FadeInImage.memoryNetwork(
-                        image: model.stone.defaultPicture,
-                        placeholder: kTransparentImage,
-                        width: size.width,
-                        height: size.height,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          gradient: LinearGradient(
-                              begin: FractionalOffset.topCenter,
-                              end: FractionalOffset.bottomCenter,
-                              colors: [
-                                Colors.black.withOpacity(0),
-                                Theme.of(context).primaryColor,
-                              ],
-                              stops: [
-                                0.0,
-                                1.0
-                              ])),
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top: 40, left: 20),
-                              child: InkWell(
-                                child: Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 40, right: 20),
-                              child: Icon(
-                                Icons.favorite_border,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Text(
-                                    model.stone.title,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    model.stone.overview,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        Expanded(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: <Widget>[
+                              OverviewStoneWidget(stone: model.stone),
+                              HistoriesStoneWidget(
+                                  histories: model.stone.histories),
+                              PicturesStoneWidget(
+                                  pictures: model.stone.pictures),
+                            ],
                           ),
                         ),
                       ],
-                    )
-                  ],
+                    ),
+                  ),
+                  body: Stack(
+                    children: <Widget>[
+                      Opacity(
+                        opacity: 1,
+                        child: new FadeInImage.memoryNetwork(
+                          image: model.stone.defaultPicture,
+                          placeholder: kTransparentImage,
+                          width: size.width,
+                          height: size.height,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            gradient: LinearGradient(
+                                begin: FractionalOffset.topCenter,
+                                end: FractionalOffset.bottomCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0),
+                                  Theme.of(context).primaryColor,
+                                ],
+                                stops: [
+                                  0.0,
+                                  1.0
+                                ])),
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(top: 40, left: 20),
+                                child: InkWell(
+                                  child: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 40, right: 20),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    model.updateFavory(model.stone.id);
+                                  },
+                                  child: Icon(
+                                    model.stateFavory
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: model.stateFavory
+                                        ? Colors.red
+                                        : Colors.white,
+                                    size: 30,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      model.stone.title,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      model.stone.overview,
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: FloatButton(route: RoutesNames.comments, icon: Icons.chat, color: Colors.grey, argument: model.stone,),
-              )
-            ]
-            ),
+                Positioned(
+                  bottom: 20,
+                  right: 20,
+                  child: FloatButton(
+                    route: RoutesNames.comments,
+                    icon: Icons.chat,
+                    color: Colors.grey,
+                    argument: model.stone,
+                  ),
+                )
+              ]),
       ),
     );
   }

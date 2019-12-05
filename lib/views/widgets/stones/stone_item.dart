@@ -1,6 +1,4 @@
 import 'package:edelsten/core/models/stone.dart';
-import 'package:edelsten/core/viewmodels/stone_item_model.dart';
-import 'package:edelsten/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:edelsten/core/models/user.dart';
@@ -63,8 +61,8 @@ class StoneListItem extends StatelessWidget {
                           model.updateFavory(stone.id);
                         },
                         child: Icon(
-                          model.stateFavory[int.parse(stone.id)] ? Icons.favorite : Icons.favorite_border,
-                          color: model.stateFavory[int.parse(stone.id)] ? Colors.red : Colors.white,
+                          model.stateFavory[stone.id] ? Icons.favorite : Icons.favorite_border,
+                          color: model.stateFavory[stone.id] ? Colors.red : Colors.white,
                           size: 30,
                         ),
                       ),

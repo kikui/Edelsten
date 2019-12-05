@@ -2,7 +2,6 @@ import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/viewmodels/parameters_model.dart';
-import 'package:edelsten/core/viewmodels/stone_item_model.dart';
 import 'package:edelsten/core/viewmodels/stones_model.dart';
 import 'package:edelsten/core/viewmodels/comments_model.dart';
 import 'package:get_it/get_it.dart';
@@ -23,5 +22,4 @@ void setupLocator() {
   locator.registerFactory(() => StoneModel());
   locator.registerFactory(() => CommentModel());
   locator.registerFactory(() => ParametersModel());
-  locator.registerFactory(() => StoneItemModel());
 }

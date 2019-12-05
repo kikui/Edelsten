@@ -17,7 +17,7 @@ class StonesListViewWidget extends StatelessWidget {
               stone: stones[index],
               onTap: () {
                 Navigator.pushNamed(context, RoutesNames.stone,
-                    arguments: stones[index]);
+                    arguments: stones[index]).then((_) => {model.setStateFavory()});
               },
             ));
   }

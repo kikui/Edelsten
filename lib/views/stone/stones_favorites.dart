@@ -35,7 +35,7 @@ class StonesFavoritesView extends StatelessWidget {
                       ),
                     )
                   : Expanded(
-                      child: StonesGridViewWidget(stones: model.stoneToShow()), 
+                      child: StonesGridViewWidget(stones: model.stoneToShow(), model: model), 
                   )                     
             ]),
           ),
