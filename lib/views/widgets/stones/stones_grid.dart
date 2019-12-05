@@ -3,9 +3,10 @@ import 'package:edelsten/routes/routes_names.dart';
 import 'package:edelsten/views/widgets/widgets.dart';
 
 class StonesGridViewWidget extends StatelessWidget {
-  const StonesGridViewWidget({@required this.stones});
+  const StonesGridViewWidget({@required this.stones, @required this.model});
 
   final List stones;
+  final dynamic model;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +15,11 @@ class StonesGridViewWidget extends StatelessWidget {
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: stones?.length,
         itemBuilder: (context, index) => StoneListItem(
+              model: model,
               stone: stones[index],
-              displayFavorite: false,
               onTap: () {
                 Navigator.pushNamed(context, RoutesNames.stone,
-                    arguments: stones[index]);
+                    arguments: stones[index]).then((_) => {model.setStateFavory()});
               },
             ));
   }

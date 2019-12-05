@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:edelsten/core/helper/favoryHelper.dart';
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/models/stone.dart';
 import 'package:edelsten/core/repositories/stone_repository.dart';
@@ -11,12 +12,30 @@ import '../view_state.dart';
 
 class StonesModel extends BaseModel {
   StoneRepository _stoneRepo = locator<StoneRepository>();
+  FavoryHelper _favoryHelper = FavoryHelper();
+
+  Map<String, bool> _stateFavory = new Map();
+  Map<String, bool> get stateFavory => _stateFavory;
+
   List<Stone> stones;
   TextEditingController filter = TextEditingController(); 
   Icon searchIcon = Icon(Icons.search);
   Widget searchBar = Text("chercher une pierre");
   String searchText = "";
-  List<Stone> filteredStones;
+  List<Stone> filteredStones; 
+
+  void setStateFavory() {
+    _stateFavory.clear();
+    stones.forEach((e) => {
+      _stateFavory[e.id] = _favoryHelper.isFavory(e.id)
+    });
+    notifyListeners();
+  }
+
+  void updateStateFavory(String uuidStone) {
+    _stateFavory[uuidStone] = !_stateFavory[uuidStone];
+    notifyListeners();
+  }
   
   StonesModel(){
     filter.addListener((){
@@ -37,6 +56,7 @@ class StonesModel extends BaseModel {
   Future getstones() async {
     setState(ViewState.Busy);
     stones = await _stoneRepo.getAllStones();
+    setStateFavory();
     filteredStones = stones;
     setState(ViewState.Idle);
   }
@@ -70,5 +90,10 @@ class StonesModel extends BaseModel {
       filter.clear();
     }
     setState(ViewState.Idle);
+  }
+
+  void updateFavory(String uuidStone) async {
+    _favoryHelper.updateFavory(uuidStone, _stateFavory[uuidStone]);
+    updateStateFavory(uuidStone);
   }
 }
