@@ -5,8 +5,10 @@ import 'package:edelsten/core/viewmodels/stone_model.dart';
 import 'package:edelsten/views/base_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:edelsten/core/models/user.dart';
 
 class StoneView extends StatefulWidget {
   final String uuidStone;
@@ -138,23 +140,26 @@ class _StoneViewState extends State<StoneView>
                                   },
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 40, right: 20),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    model.updateFavory(model.stone.id);
-                                  },
-                                  child: Icon(
-                                    model.stateFavory
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: model.stateFavory
-                                        ? Colors.red
-                                        : Colors.white,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
+                              Provider.of<User>(context) == null
+                                  ? Text('')
+                                  : Container(
+                                      margin:
+                                          EdgeInsets.only(top: 40, right: 20),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          model.updateFavory(model.stone.id);
+                                        },
+                                        child: Icon(
+                                          model.stateFavory
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: model.stateFavory
+                                              ? Colors.red
+                                              : Colors.white,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
                           SizedBox(
