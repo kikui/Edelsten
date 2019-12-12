@@ -11,59 +11,63 @@ class CommentModel extends BaseModel {
   CommentRepository _commentRepo = locator<CommentRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
   List<Comment> listComment;
-  User user;
   StreamSubscription<List<Comment>> streamSubscriptionComments;
-  StreamSubscription<User> streamSubscriptionUser;
 
   void getComments(String uuidStone) {
-    streamSubscriptionComments = _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
+    streamSubscriptionComments =
+        _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
       setState(ViewState.Busy);
       listComment = listStream;
       setState(ViewState.Idle);
     });
-    // streamSubscriptionUser = _auth.userController.stream.listen((User userFromStream) {
-    //     user = userFromStream;
-    //   });
   }
 
   // method create comment
   void createComment(String stoneId, String title, String body) {
     setState(ViewState.Busy);
-    Comment comment = new Comment(title, stoneId, user.pseudo, body);
+    Comment comment = new Comment(title, stoneId, _auth.user.pseudo, body);
     _commentRepo.addComment(comment);
   }
 
-  // method updateLike
-  void updateLike(Comment comment) {
-    var checkAddLike = true;
-    listComment.forEach((e) => {
-      e.like.forEach((f) => {
-        if(f == user.pseudo){
-          comment.like.remove(f),
-          checkAddLike = false,
-        }
-      })
-    });
-    if(checkAddLike == true) {
-      comment.like.add(user.pseudo);
-    }
-    _commentRepo.updateComment(comment);
+  // method updateLikeAndDislike
+  // statut == 'like' or 'dislike'
+  void updateLikeAndDislike(Comment comment, String statut) {
+    Comment commentResult = checkaddedAndUpdate(statut, comment);
+    _commentRepo.updateComment(commentResult);
   }
 
-  // method updateDislike
-    void updateDislike(Comment comment) {
-    var checkAddDislike = true;
-    listComment.forEach((e) => {
-      e.dislike.forEach((f) => {
-        if(f == user.pseudo){
-          comment.dislike.remove(f),
-          checkAddDislike = false,
-        }
-      })
-    });
-    if(checkAddDislike == true) {
-      comment.dislike.add(user.pseudo);
+  Comment checkaddedAndUpdate(String statut, Comment comment) {
+    List<dynamic> listPrimary = List();
+    List<dynamic> listSecondary = List();
+    var checkAdd = true;
+    if (statut == 'like') {
+      listPrimary = comment.like;
+      listSecondary = comment.dislike;
+    } else {
+      listPrimary = comment.dislike;
+      listSecondary = comment.like;
     }
-    _commentRepo.updateComment(comment);
+    for (var i = 0; i < listPrimary.length; i++) {
+      if (listPrimary[i] == _auth.user.pseudo) {
+        listPrimary.remove(listPrimary[i]);
+        checkAdd = false;
+      }
+    }
+    for (var i = 0; i < listSecondary.length; i++) {
+      if (listSecondary[i] == _auth.user.pseudo) {
+        listSecondary.remove(listSecondary[i]);
+      }
+    }
+    if (checkAdd == true) {
+      listPrimary.add(_auth.user.pseudo);
+    }
+    if (statut == 'like') {
+      comment.like = listPrimary;
+      comment.dislike = listSecondary;
+    } else {
+      comment.dislike = listPrimary;
+      comment.like = listSecondary;
+    }
+    return comment;
   }
 }
