@@ -73,6 +73,7 @@ class StonesModel extends BaseModel {
     return filteredStones;
   }
 
+  //search bar
   void searchIconPressed(){
     setState(ViewState.Busy);
     if (searchIcon.icon == Icons.search){
@@ -92,6 +93,7 @@ class StonesModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
+  // update user statut favory
   void updateFavory(String uuidStone) async {
     _favoryHelper.updateFavory(uuidStone, _stateFavory[uuidStone]);
     updateStateFavory(uuidStone);

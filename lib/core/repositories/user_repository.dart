@@ -35,7 +35,7 @@ class UserRepository {
     return userDocumentReference;
   }
 
-  // method create userData(uuid)
+  // method create userData(user)
   void createUserData(User user) async {
     CollectionReference userCollectionReference = dataBase.collection('users');
     Map dataUser = Map<String, dynamic>();
@@ -51,12 +51,14 @@ class UserRepository {
     await documentUser.collection('books').add(dataBook);
   }
 
+  // method get userDatas en flux continue
   Stream<User> getUserDataStream(String uuidUser) {  
     return _getUserDocument(uuidUser).snapshots().map<User>((DocumentSnapshot snapshot) {
       return User.fromSnapshot(snapshot);
     });
   }
 
+  // method get userDatas
   Future<User> getUserData(String uuidUser) async {  
     DocumentReference userDocumentReference = _getUserDocument(uuidUser);
     DocumentSnapshot userDocumentSnapshot = await userDocumentReference.get();
@@ -108,8 +110,8 @@ class UserRepository {
     userDocumentReference.updateData(data);
   }
 
-  // method get stream books(user uuid)
-  // method add book
-  // method delete book(book uuid)
-  // method update book(book uuid)
+  // TODO method get stream books(user uuid)
+  // TODO method add book
+  // TODO method delete book(book uuid)
+  // TODO method update book(book uuid)
 }

@@ -8,6 +8,7 @@ class FavoryHelper {
   AuthenticationService _auth = locator<AuthenticationService>();
   UserRepository _userRepo = locator<UserRepository>();
 
+  // check if the stone isFavory
   bool isFavory(String uuidStone) {
     if(_auth.user != null){
       List<dynamic> listDocumentReferenceFavory = _auth.user.favorites;
@@ -21,6 +22,7 @@ class FavoryHelper {
     return false;
   }
 
+  // update user favory statut
   void updateFavory(String uuidStone, bool isFavory) {
     if(isFavory) {
       _userRepo.deleteFavory(_auth.user, uuidStone);

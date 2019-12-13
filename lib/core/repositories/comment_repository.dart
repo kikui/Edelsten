@@ -6,6 +6,7 @@ class CommentRepository {
   final Firestore dataBase = Firestore.instance; 
 
   // method getComments(String stoneId) => trié par like && date décroissante 
+  // TODO update trie to ratio(like/dislike) && date décroissante
   Stream<List<Comment>> getComments(String stoneId) {
     try {
       Query collection = dataBase.collection('comments');

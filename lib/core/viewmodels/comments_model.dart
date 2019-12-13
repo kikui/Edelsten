@@ -7,6 +7,7 @@ import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/base_model.dart';
 import 'package:edelsten/locator.dart';
 
+// this code part is in progress in another branch
 class CommentModel extends BaseModel {
   CommentRepository _commentRepo = locator<CommentRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
