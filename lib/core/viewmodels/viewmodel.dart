@@ -5,3 +5,4 @@ export 'stone_model.dart';
 export 'parameters_model.dart';
 export 'favorites_model.dart';
 export 'register_model.dart';
+export 'comments_model.dart';

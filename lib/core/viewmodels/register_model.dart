@@ -56,8 +56,7 @@ class RegisterModel extends BaseModel {
   }
 
   void resetcontrollers(){
-    emailController.clear();
-    usernameController.clear();
     passwordController.clear();
+    passwordCheckerController.clear();
   }
 }

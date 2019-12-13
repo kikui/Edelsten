@@ -37,6 +37,7 @@ class StoneRepository {
     return stoneData;
   }
 
+  // method get documentStone with stoneTitle | requete where
   Future<DocumentReference> getDocumentStoneByTitle(String stoneTitle) async {
     Query collectionTitleWhere = dataBase.collection(STONES_STRING).where('title', isEqualTo: stoneTitle);
     QuerySnapshot querySnapshot = await collectionTitleWhere.getDocuments();
@@ -93,5 +94,6 @@ class StoneRepository {
     dataStone['defaultPicture'] = stoneData.defaultPicture;
     return dataStone;
   }
-  // method update one stone
+
+  // TODO method update one stone
 }
