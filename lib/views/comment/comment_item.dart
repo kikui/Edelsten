@@ -45,14 +45,18 @@ class CommentItemWidget extends StatelessWidget {
                   GestureDetector(
                     onTap: Provider.of<User>(context) == null
                         ? null
-                        : model.updateLikeAndDislike(
-                            model.listComment[index], LikeDislikeStatut.Like),
+                        : () {
+                            model.updateLikeAndDislike(model.listComment[index],
+                                LikeDislikeStatut.Like);
+                          },
                     child: Container(
                       width: 50,
                       child: Center(
                           child: Row(
                         children: <Widget>[
-                          Icon(Icons.thumb_up, color: Colors.grey),
+                          Icon(Icons.thumb_up, color: Provider.of<User>(context) == null
+                              ? Colors.grey
+                              : model.stateMyLikeDislikeComment[model.listComment[index].id][LikeDislikeStatut.Like] == false ? Colors.grey : Colors.redAccent),
                           Text(
                               ' ' +
                                   model.listComment[index].like.length
@@ -66,17 +70,18 @@ class CommentItemWidget extends StatelessWidget {
                   GestureDetector(
                     onTap: Provider.of<User>(context) == null
                         ? null
-                        : model.updateLikeAndDislike(model.listComment[index],
-                            LikeDislikeStatut.Dislike),
+                        : () {
+                            model.updateLikeAndDislike(model.listComment[index],
+                                LikeDislikeStatut.Dislike);
+                          },
                     child: Container(
                       width: 50,
                       child: Center(
                           child: Row(
                         children: <Widget>[
-                          Icon(
-                            Icons.thumb_down,
-                            color: Colors.grey,
-                          ),
+                          Icon(Icons.thumb_down, color: Provider.of<User>(context) == null
+                              ? Colors.grey
+                              : model.stateMyLikeDislikeComment[model.listComment[index].id][LikeDislikeStatut.Dislike] == false ? Colors.grey : Colors.redAccent),
                           Text(
                               ' ' +
                                   model.listComment[index].dislike.length

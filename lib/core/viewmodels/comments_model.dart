@@ -14,11 +14,51 @@ class CommentModel extends BaseModel {
   List<Comment> listComment;
   StreamSubscription<List<Comment>> streamSubscriptionComments;
 
+  Map<String, Map<LikeDislikeStatut, bool>> _stateMyLikeDislikeComment =
+      new Map();
+  Map<String, Map<LikeDislikeStatut, bool>> get stateMyLikeDislikeComment =>
+      _stateMyLikeDislikeComment;
+
+  void setStateMyLikeDislikeComment() {
+    _stateMyLikeDislikeComment.clear();
+    listComment
+        .forEach((e) => {_stateMyLikeDislikeComment[e.id] = isMyLikeDislikeComment(e)});
+    notifyListeners();
+  }
+
+  Map<LikeDislikeStatut, bool> isMyLikeDislikeComment(Comment comment) {
+    Map<LikeDislikeStatut, bool> result = new Map();
+    var checkLikeTrue = false;
+    var checkDislikeTrue = false;
+    for (var item in comment.like) {
+      if (item == _auth.user.pseudo) {
+        checkLikeTrue = true;
+        result[LikeDislikeStatut.Like] = true;
+      }
+    }
+    for (var item in comment.dislike) {
+      if (item == _auth.user.pseudo) {
+        checkDislikeTrue = true;
+        result[LikeDislikeStatut.Dislike] = true;
+      }
+    }
+    if(checkLikeTrue == false) {
+      result[LikeDislikeStatut.Like] = false;
+    }
+    if(checkDislikeTrue == false) {
+      result[LikeDislikeStatut.Dislike] = false;
+    }
+    return result;
+  }
+
   void getComments(String uuidStone) {
+    setState(ViewState.Busy);
     streamSubscriptionComments =
         _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
-      setState(ViewState.Busy);
       listComment = listStream;
+      if(_auth.user != null) {
+        setStateMyLikeDislikeComment();
+      }
       setState(ViewState.Idle);
     });
   }
@@ -31,7 +71,6 @@ class CommentModel extends BaseModel {
   }
 
   // method updateLikeAndDislike
-  // statut == 'like' or 'dislike'
   void updateLikeAndDislike(Comment comment, LikeDislikeStatut statut) {
     Comment commentResult = checkaddedAndUpdate(statut, comment);
     _commentRepo.updateComment(commentResult);
@@ -65,10 +104,23 @@ class CommentModel extends BaseModel {
     if (statut == LikeDislikeStatut.Like) {
       comment.like = listPrimary;
       comment.dislike = listSecondary;
+      // if (checkAdd == true) {
+      //   _stateMyLikeDislikeComment[comment.id][LikeDislikeStatut.Like] = true;
+      // } else {
+      //   _stateMyLikeDislikeComment[comment.id][LikeDislikeStatut.Like] = false;
+      // }
     } else {
       comment.dislike = listPrimary;
       comment.like = listSecondary;
+      // if (checkAdd == true) {
+      //   _stateMyLikeDislikeComment[comment.id][LikeDislikeStatut.Dislike] =
+      //       true;
+      // } else {
+      //   _stateMyLikeDislikeComment[comment.id][LikeDislikeStatut.Dislike] =
+      //       false;
+      // }
     }
+    //notifyListeners();
     return comment;
   }
 }
