@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:edelsten/views/base_view.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/views/comment/comment_item.dart';
+import 'package:provider/provider.dart';
+import 'package:edelsten/core/models/user.dart';
 
 class CommentsView extends StatefulWidget {
   final String uuidStone;
@@ -33,32 +35,35 @@ class _CommentsViewState extends State<CommentsView>
                       const Color(0xFF021534),
                       const Color(0xFF445269)
                     ])),
-                child: model.state == ViewState.Busy ||
-                        model.listComment == null
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Stack(children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: ListView.builder(
-                            itemCount: model.listComment.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return CommentItemWidget(model: model, index: index);
-                            },
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 20,
-                          right: 20,
-                          child: FloatButton(
-                            route: RoutesNames.inComing,
-                            icon: Icons.add,
-                            color: Color.fromRGBO(158, 158, 158, 0.5),
-                            argument: '',
-                          ),
-                        )
-                      ]),
+                child:
+                    model.state == ViewState.Busy || model.listComment == null
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Stack(children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: ListView.builder(
+                                itemCount: model.listComment.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CommentItemWidget(
+                                      model: model, index: index);
+                                },
+                              ),
+                            ),
+                            Provider.of<User>(context) == null
+                                ? Container()
+                                : Positioned(
+                                    bottom: 20,
+                                    right: 20,
+                                    child: FloatButton(
+                                      route: RoutesNames.inComing,
+                                      icon: Icons.add,
+                                      color: Color.fromRGBO(158, 158, 158, 0.5),
+                                      argument: '',
+                                    ),
+                                  )
+                          ]),
               ),
             )));
   }

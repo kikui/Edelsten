@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:edelsten/core/models/user.dart';
+import 'package:edelsten/core/models/numLikeDislike';
 
 class CommentItemWidget extends StatelessWidget {
   const CommentItemWidget({@required this.model, @required this.index});
@@ -17,9 +20,10 @@ class CommentItemWidget extends StatelessWidget {
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: <Widget>[
             Flexible(
               child: Wrap(
+                direction: Axis.vertical,
                 children: [
                   Text(
                       model.listComment[index].user +
@@ -35,36 +39,55 @@ class CommentItemWidget extends StatelessWidget {
                 ],
               ),
             ),
-            GestureDetector(
-              // onTap: model.updateLike(model.listComment[index]),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Text(
-                      '+' + model.listComment[index].like.length.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () => {},
-              child: Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Text(
-                      '-' + model.listComment[index].dislike.length.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                ),
+            Flexible(
+              child: Wrap(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: Provider.of<User>(context) == null
+                        ? null
+                        : model.updateLikeAndDislike(
+                            model.listComment[index], LikeDislikeStatut.Like),
+                    child: Container(
+                      width: 50,
+                      child: Center(
+                          child: Row(
+                        children: <Widget>[
+                          Icon(Icons.thumb_up, color: Colors.grey),
+                          Text(
+                              ' ' +
+                                  model.listComment[index].like.length
+                                      .toString(),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 18)),
+                        ],
+                      )),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: Provider.of<User>(context) == null
+                        ? null
+                        : model.updateLikeAndDislike(model.listComment[index],
+                            LikeDislikeStatut.Dislike),
+                    child: Container(
+                      width: 50,
+                      child: Center(
+                          child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.thumb_down,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                              ' ' +
+                                  model.listComment[index].dislike.length
+                                      .toString(),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 18)),
+                        ],
+                      )),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -72,7 +95,8 @@ class CommentItemWidget extends StatelessWidget {
         SizedBox(height: 15),
         Container(
           child: Text(model.listComment[index].body,
-              style: TextStyle(color: Colors.white, fontSize: 15)),
+              style: TextStyle(color: Colors.white, fontSize: 15),
+              textAlign: TextAlign.left),
         ),
       ]),
     );

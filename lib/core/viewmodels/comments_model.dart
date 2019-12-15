@@ -6,8 +6,8 @@ import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/base_model.dart';
 import 'package:edelsten/locator.dart';
+import 'package:edelsten/core/models/numLikeDislike';
 
-// this code part is in progress in another branch
 class CommentModel extends BaseModel {
   CommentRepository _commentRepo = locator<CommentRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
@@ -32,16 +32,16 @@ class CommentModel extends BaseModel {
 
   // method updateLikeAndDislike
   // statut == 'like' or 'dislike'
-  void updateLikeAndDislike(Comment comment, String statut) {
+  void updateLikeAndDislike(Comment comment, LikeDislikeStatut statut) {
     Comment commentResult = checkaddedAndUpdate(statut, comment);
     _commentRepo.updateComment(commentResult);
   }
 
-  Comment checkaddedAndUpdate(String statut, Comment comment) {
+  Comment checkaddedAndUpdate(LikeDislikeStatut statut, Comment comment) {
     List<dynamic> listPrimary = List();
     List<dynamic> listSecondary = List();
     var checkAdd = true;
-    if (statut == 'like') {
+    if (statut == LikeDislikeStatut.Like) {
       listPrimary = comment.like;
       listSecondary = comment.dislike;
     } else {
@@ -62,7 +62,7 @@ class CommentModel extends BaseModel {
     if (checkAdd == true) {
       listPrimary.add(_auth.user.pseudo);
     }
-    if (statut == 'like') {
+    if (statut == LikeDislikeStatut.Like) {
       comment.like = listPrimary;
       comment.dislike = listSecondary;
     } else {
