@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:edelsten/core/models/user.dart';
-import 'package:edelsten/core/models/numLikeDislike';
+import 'package:edelsten/core/models/numLikeDislike.dart';
 
 class CommentItemWidget extends StatelessWidget {
   const CommentItemWidget({@required this.model, @required this.index});
@@ -22,6 +22,7 @@ class CommentItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Flexible(
+              flex: 1,
               child: Wrap(
                 direction: Axis.vertical,
                 children: [
@@ -56,7 +57,7 @@ class CommentItemWidget extends StatelessWidget {
                         children: <Widget>[
                           Icon(Icons.thumb_up, color: Provider.of<User>(context) == null
                               ? Colors.grey
-                              : model.stateMyLikeDislikeComment[model.listComment[index].id][LikeDislikeStatut.Like] == false ? Colors.grey : Colors.redAccent),
+                              : model.stateMyLikeDislikeComment[model.listComment[index].id][LikeDislikeStatut.Like] == false ? Colors.grey : Colors.green),
                           Text(
                               ' ' +
                                   model.listComment[index].like.length
@@ -99,9 +100,10 @@ class CommentItemWidget extends StatelessWidget {
         ),
         SizedBox(height: 15),
         Container(
+          width: MediaQuery.of(context).size.width - 40,
           child: Text(model.listComment[index].body,
               style: TextStyle(color: Colors.white, fontSize: 15),
-              textAlign: TextAlign.left),
+              textAlign: TextAlign.start),
         ),
       ]),
     );
