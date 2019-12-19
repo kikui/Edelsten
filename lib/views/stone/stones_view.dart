@@ -39,31 +39,32 @@ class _StonesViewState extends State<StonesView> {
       body: Center(
         child: _page[_selectedIndex],
       ),
-      bottomNavigationBar: Provider.of<User>(context) == null ? null :
-       BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text('Pierres'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            title: Text('Notes'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text('Favoris'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Paramètres'))
-        ],
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Theme.of(context).accentColor,
-        unselectedItemColor: Colors.white,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: Provider.of<User>(context) == null
+          ? null
+          : BottomNavigationBar(
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.menu),
+                  title: Text('Pierres'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.book),
+                  title: Text('Notes'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite),
+                  title: Text('Favoris'),
+                ),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.settings), title: Text('Paramètres'))
+              ],
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Theme.of(context).primaryColor,
+              selectedItemColor: Theme.of(context).accentColor,
+              unselectedItemColor: Colors.white,
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
     );
   }
 }
@@ -100,8 +101,8 @@ class StonesListView extends StatelessWidget {
                         ),
                       )
                     : Expanded(
-                        child:
-                            StonesListViewWidget(stones: model.stoneToShow(), model: model),
+                        child: StonesListViewWidget(
+                            stones: model.stoneToShow(), model: model),
                       )
               ],
             ),

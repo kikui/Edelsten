@@ -202,7 +202,7 @@ class _StoneViewState extends State<StoneView>
                   child: FloatButton(
                     route: RoutesNames.comments,
                     icon: Icons.chat,
-                    color: Colors.grey,
+                    color: Color.fromRGBO(158, 158, 158, 0.5),
                     argument: model.stone,
                   ),
                 )

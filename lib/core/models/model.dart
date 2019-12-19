@@ -4,3 +4,4 @@ export 'comment.dart';
 export 'history.dart';
 export 'picture.dart';
 export 'user.dart';
+export 'numLikeDislike.dart';

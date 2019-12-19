@@ -1,70 +1,69 @@
 import 'dart:async';
 
+import 'package:edelsten/core/helper/commentHelper.dart';
 import 'package:edelsten/core/models/model.dart';
 import 'package:edelsten/core/services/authentication_service.dart';
 import 'package:edelsten/core/repositories/comment_repository.dart';
 import 'package:edelsten/core/view_state.dart';
 import 'package:edelsten/core/viewmodels/base_model.dart';
 import 'package:edelsten/locator.dart';
+import 'package:edelsten/core/models/numLikeDislike.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-// this code part is in progress in another branch
 class CommentModel extends BaseModel {
   CommentRepository _commentRepo = locator<CommentRepository>();
   AuthenticationService _auth = locator<AuthenticationService>();
-  List<Comment> listComment;
-  User user;
+  CommentHelper _commentHelper = CommentHelper();
   StreamSubscription<List<Comment>> streamSubscriptionComments;
-  StreamSubscription<User> streamSubscriptionUser;
+
+  TextEditingController messageBarController = TextEditingController();
+  List<Comment> listComment;
+
+  Map<String, Map<LikeDislikeStatut, bool>> _stateMyLikeDislikeComment =
+      new Map();
+  Map<String, Map<LikeDislikeStatut, bool>> get stateMyLikeDislikeComment =>
+      _stateMyLikeDislikeComment;
+
+  void setStateMyLikeDislikeComment() {
+    _stateMyLikeDislikeComment.clear();
+    listComment.forEach((e) => {
+          _stateMyLikeDislikeComment[e.id] =
+              _commentHelper.isMyLikeDislikeComment(e)
+        });
+    notifyListeners();
+  }
 
   void getComments(String uuidStone) {
-    streamSubscriptionComments = _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
-      setState(ViewState.Busy);
+    setState(ViewState.Busy);
+    streamSubscriptionComments =
+        _commentRepo.getComments(uuidStone).listen((List<Comment> listStream) {
       listComment = listStream;
+      if (_auth.user != null) {
+        setStateMyLikeDislikeComment();
+      }
       setState(ViewState.Idle);
     });
-    // streamSubscriptionUser = _auth.userController.stream.listen((User userFromStream) {
-    //     user = userFromStream;
-    //   });
   }
 
   // method create comment
   void createComment(String stoneId, String title, String body) {
     setState(ViewState.Busy);
-    Comment comment = new Comment(title, stoneId, user.pseudo, body);
+    Comment comment = new Comment(title, stoneId, _auth.user.pseudo, body);
     _commentRepo.addComment(comment);
+    messageBarController.clear();
   }
 
-  // method updateLike
-  void updateLike(Comment comment) {
-    var checkAddLike = true;
-    listComment.forEach((e) => {
-      e.like.forEach((f) => {
-        if(f == user.pseudo){
-          comment.like.remove(f),
-          checkAddLike = false,
-        }
-      })
-    });
-    if(checkAddLike == true) {
-      comment.like.add(user.pseudo);
-    }
-    _commentRepo.updateComment(comment);
+  // method updateLikeAndDislike
+  void updateLikeAndDislike(Comment comment, LikeDislikeStatut statut) {
+    Comment commentResult = _commentHelper.checkaddedAndUpdate(statut, comment);
+    _commentRepo.updateComment(commentResult);
   }
 
-  // method updateDislike
-    void updateDislike(Comment comment) {
-    var checkAddDislike = true;
-    listComment.forEach((e) => {
-      e.dislike.forEach((f) => {
-        if(f == user.pseudo){
-          comment.dislike.remove(f),
-          checkAddDislike = false,
-        }
-      })
-    });
-    if(checkAddDislike == true) {
-      comment.dislike.add(user.pseudo);
-    }
-    _commentRepo.updateComment(comment);
+  @override
+  void dispose() {
+    messageBarController.dispose();
+    streamSubscriptionComments.cancel();
+    super.dispose();
   }
 }

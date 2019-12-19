@@ -23,7 +23,7 @@ class Router {
         return MaterialPageRoute(builder: (_) => StonesView());
       case RoutesNames.comments:
         var stone = settings.arguments as Stone;
-        return MaterialPageRoute(builder: (_) => CommentsView(stoneId: stone.id));
+        return MaterialPageRoute(builder: (_) => CommentsView(uuidStone: stone.id));
       case RoutesNames.favoritesStones:
         return MaterialPageRoute(builder: (_) => StonesFavoritesView());
       case RoutesNames.stone:
