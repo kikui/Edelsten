@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isAdmin(){
+    	return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.administrator == true;
+    }
+    function userPseudo(){
+    	return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.pseudo;
+    }
+  
+    match /users/{userId} {
+      allow read, update: if request.auth.uid == userId;
+      allow create: if request.auth.uid != null;
+      allow delete: if isAdmin();
+    }
+    match /comments/{comment} {
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update, delete: if resource.data.user == userPseudo();
+      allow update, delete: if isAdmin();
+    }
+    match /stones/{stone} {
+      allow read;
+      allow create, update, delete: if isAdmin();
+      
+    }
+  }
+}
