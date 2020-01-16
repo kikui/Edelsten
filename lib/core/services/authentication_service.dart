@@ -5,8 +5,10 @@ import 'package:edelsten/core/repositories/user_repository.dart';
 import 'package:edelsten/locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class AuthenticationService {
+  FirebaseAnalytics analytics = FirebaseAnalytics();
   StreamController<User> userController = BehaviorSubject();
   Stream<User> userStream;
   UserRepository _userRepository = locator<UserRepository>();
