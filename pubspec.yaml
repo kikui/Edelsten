@@ -24,6 +24,7 @@ dependencies:
   firestore_mock: 
   firestore_helpers:
   rxdart: ^0.22.6
+  firebase_analytics: ^5.0.9
 
 dev_dependencies:
   flutter_test:
